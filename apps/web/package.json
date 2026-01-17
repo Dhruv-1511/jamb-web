@@ -42,6 +42,6 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@workspace/typescript-config": "workspace:*",
-    "baseline-browser-mapping": "^2.9.5"
+    "baseline-browser-mapping": "^2.9.15"
   }
 }
