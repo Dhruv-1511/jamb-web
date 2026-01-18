@@ -44,7 +44,7 @@ export default async function RootLayout({
         className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} antialiased`}
       >
         <Providers>
-          <Navbar navbarData={nav.navbarData} settingsData={nav.settingsData} />
+          <Navbar navbarData={nav.navbarData} settingsData={nav.settingsData} drawerData={nav.drawerData} />
           {children}
           <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />

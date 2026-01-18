@@ -25,7 +25,6 @@ export const productGrid = defineType({
       options: createRadioListLayout([
         { title: "4 Columns", value: "4" },
         { title: "5 Columns", value: "5" },
-        { title: "6 Columns", value: "6" },
       ]),
       initialValue: "4",
     }),

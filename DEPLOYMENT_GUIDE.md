@@ -105,7 +105,7 @@ SANITY_STUDIO_PRODUCTION_HOSTNAME=your-studio-hostname
 2. Select your project
 3. Go to **API** → **Tokens**
 4. Create a token with **Deploy Studio** permission
-
+skFZWoDeKMP1wyhntLhXN9wIB9V7AgikliFEPjeYNYmZ9W3lJChBfhNOAldPFNHNGm8j0TFvKxi003522QQpMjBSC4ym7M3y8eqgDgX8xFaUn837rwjkcRH1J3cpwUsyMcuUyP4TYwcZ2UJ0gzmZKl1hCSePQxWEqX0U5XwbgSw2pUE9BUTT
 **About SANITY_STUDIO_PRODUCTION_HOSTNAME:**
 - This will be your studio subdomain
 - Example: If you set `my-project`, your studio will be at `https://my-project.sanity.studio`

@@ -1,3 +1,4 @@
+import { categoryLinks } from "@/schemaTypes/blocks/category-links";
 import { cta } from "@/schemaTypes/blocks/cta";
 import { hero } from "@/schemaTypes/blocks/hero";
 import { productGrid } from "@/schemaTypes/blocks/product-grid";
@@ -12,4 +13,5 @@ export const pageBuilderBlocks = [
   splitFeature,
   productGrid,
   storyCards,
+  categoryLinks,
 ];

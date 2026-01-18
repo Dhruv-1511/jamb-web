@@ -1,11 +1,16 @@
 import { sanityFetch } from "./sanity/live";
-import { queryGlobalSeoSettings, queryNavbarData } from "./sanity/query";
+import { queryDrawerNavigation, queryGlobalSeoSettings, queryNavbarData } from "./sanity/query";
 
 export const getNavigationData = async () => {
-  const [navbarData, settingsData] = await Promise.all([
+  const [navbarData, settingsData, drawerData] = await Promise.all([
     sanityFetch({ query: queryNavbarData }),
     sanityFetch({ query: queryGlobalSeoSettings }),
+    sanityFetch({ query: queryDrawerNavigation }),
   ]);
 
-  return { navbarData: navbarData.data, settingsData: settingsData.data };
+  return {
+    navbarData: navbarData.data,
+    settingsData: settingsData.data,
+    drawerData: drawerData.data,
+  };
 };

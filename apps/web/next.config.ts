@@ -6,6 +6,7 @@ import type { NextConfig } from "next";
 
 import { client } from "@/lib/sanity/client";
 import { queryRedirects } from "@/lib/sanity/query";
+import type { QueryRedirectsResult } from "@/lib/sanity/sanity.types";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@workspace/ui"],
@@ -28,7 +29,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     const redirects = await client.fetch(queryRedirects);
-    return redirects.map((redirect) => ({
+    return redirects.map((redirect: QueryRedirectsResult[number]) => ({
       source: redirect.source,
       destination: redirect.destination,
       permanent: redirect.permanent ?? false,

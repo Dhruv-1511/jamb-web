@@ -148,6 +148,22 @@ const storyCardsBlock = /* groq */ `
   }
 `;
 
+const categoryLinksBlock = /* groq */ `
+  _type == "categoryLinks" => {
+    ...,
+    "links": array::compact(links[]{
+      _key,
+      text,
+      "openInNewTab": url.openInNewTab,
+      "href": select(
+        url.type == "internal" => url.internal->slug.current,
+        url.type == "external" => url.external,
+        url.href
+      ),
+    })
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
@@ -157,7 +173,8 @@ const pageBuilderFragment = /* groq */ `
     ${subscribeNewsletterBlock},
     ${splitFeatureBlock},
     ${productGridBlock},
-    ${storyCardsBlock}
+    ${storyCardsBlock},
+    ${categoryLinksBlock}
   }
 `;
 
@@ -295,6 +312,10 @@ export const querySitemapData = defineQuery(`{
   "slugPages": *[_type == "page" && defined(slug.current)]{
     "slug": slug.current,
     "lastModified": _updatedAt
+  },
+  "blogPages": *[_type == "blog" && defined(slug.current)]{
+    "slug": slug.current,
+    "lastModified": _updatedAt
   }
 }`);
 
@@ -334,5 +355,52 @@ export const queryRedirects = defineQuery(`
     "source":source.current,
     "destination":destination.current,
     "permanent" : permanent == "true"
+  }
+`);
+
+export const queryDrawerNavigation = defineQuery(`
+  *[_type == "drawerNavigation"][0]{
+    _id,
+    searchPlaceholder,
+    links[]{
+      _key,
+      name,
+      "openInNewTab": url.openInNewTab,
+      "href": select(
+        url.type == "internal" => url.internal->slug.current,
+        url.type == "external" => url.external,
+        url.href
+      ),
+      subLinks[]{
+        _key,
+        name,
+        "openInNewTab": url.openInNewTab,
+        "href": select(
+          url.type == "internal" => url.internal->slug.current,
+          url.type == "external" => url.external,
+          url.href
+        )
+      }
+    }
+  }
+`);
+
+// Blog queries
+export const queryAllBlogDataForSearch = defineQuery(`
+  *[_type == "blog" && (seoHideFromLists != true)] | order(orderRank asc) {
+    _type,
+    _id,
+    title,
+    description,
+    "slug": slug.current,
+    orderRank,
+    ${imageFragment},
+    publishedAt,
+    "authors": authors[]->{
+      _id,
+      name,
+      position,
+      ${imageFragment}
+    }
   }
 `);

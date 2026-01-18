@@ -2,12 +2,13 @@
 
 import { env } from "@workspace/env/client";
 import { cn } from "@workspace/ui/lib/utils";
-import { Mail, Menu, Search, X } from "lucide-react";
+import { Mail, Menu, Plus, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
 
 import type {
+  QueryDrawerNavigationResult,
   QueryGlobalSeoSettingsResult,
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
@@ -17,6 +18,7 @@ import { Logo } from "./logo";
 type NavigationData = {
   navbarData: QueryNavbarDataResult;
   settingsData: QueryGlobalSeoSettingsResult;
+  drawerData: QueryDrawerNavigationResult;
 };
 
 type NavColumn = NonNullable<
@@ -27,6 +29,10 @@ type ColumnLink =
   Extract<NavColumn, { type: "column" }>["links"] extends Array<infer T>
     ? T
     : never;
+
+type DrawerLink = NonNullable<
+  NonNullable<QueryDrawerNavigationResult>["links"]
+>[number];
 
 // Fetcher function
 const fetcher = async (url: string): Promise<NavigationData> => {
@@ -51,10 +57,176 @@ function NavbarSkeleton() {
           <div className="flex items-center gap-4">
             <div className="h-6 w-6 animate-pulse rounded bg-muted/50" />
             <div className="h-6 w-6 animate-pulse rounded bg-muted/50" />
+            <div className="h-6 w-6 animate-pulse rounded bg-muted/50" />
           </div>
         </div>
       </div>
     </header>
+  );
+}
+
+function NavigationDrawer({
+  isOpen,
+  onClose,
+  drawerData,
+  settingsData,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  drawerData: QueryDrawerNavigationResult;
+  settingsData: QueryGlobalSeoSettingsResult;
+}) {
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const { logo, siteTitle } = settingsData || {};
+  const { links, searchPlaceholder } = drawerData || {};
+
+  function toggleExpanded(key: string) {
+    setExpandedItems((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
+    );
+  }
+
+  // Prevent body scroll when drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className={cn(
+          "fixed inset-0 z-50 bg-black/50 transition-opacity duration-300",
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        )}
+        onClick={onClose}
+        onKeyDown={(e) => e.key === "Escape" && onClose()}
+        role="button"
+        tabIndex={0}
+        aria-label="Close drawer"
+      />
+
+      {/* Drawer */}
+      <div
+        className={cn(
+          "fixed top-0 right-0 z-50 h-full w-full max-w-md bg-[#E8E8E8] shadow-xl transition-transform duration-300 ease-in-out",
+          isOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        <div className="flex h-full flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-6">
+            {/* Logo */}
+            <div className="flex items-center">
+              {logo ? (
+                <Logo
+                  alt={siteTitle || ""}
+                  height={40}
+                  image={logo}
+                  width={120}
+                />
+              ) : (
+                <Link
+                  href="/"
+                  className="font-serif text-3xl font-medium text-foreground"
+                  onClick={onClose}
+                >
+                  Jamb.
+                </Link>
+              )}
+            </div>
+
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={onClose}
+              className="text-foreground/70 transition-colors hover:text-foreground"
+              aria-label="Close menu"
+            >
+              <X className="size-6" />
+            </button>
+          </div>
+
+          {/* Search */}
+          <div className="px-6 pb-6">
+            <div className="flex items-center gap-3 border-b border-foreground/30 pb-2">
+              <Search className="size-5 text-foreground/50" />
+              <input
+                type="text"
+                placeholder={searchPlaceholder || "Search our collection..."}
+                className="flex-1 bg-transparent text-base outline-none placeholder:text-foreground/50"
+              />
+            </div>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex-1 overflow-y-auto px-6">
+            <div className="space-y-0">
+              {links?.map((link: DrawerLink) => {
+                const hasSubLinks = link.subLinks && link.subLinks.length > 0;
+                const isExpanded = expandedItems.includes(link._key);
+
+                return (
+                  <div key={link._key} className="border-b border-foreground/20">
+                    <div className="flex items-center justify-between py-4">
+                      <Link
+                        href={link.href || "#"}
+                        target={link.openInNewTab ? "_blank" : undefined}
+                        rel={link.openInNewTab ? "noopener noreferrer" : undefined}
+                        className="text-lg font-medium text-foreground transition-colors hover:text-foreground/70"
+                        onClick={!hasSubLinks ? onClose : undefined}
+                      >
+                        {link.name}
+                      </Link>
+                      {hasSubLinks && (
+                        <button
+                          type="button"
+                          onClick={() => toggleExpanded(link._key)}
+                          className="p-1 text-foreground/70 transition-colors hover:text-foreground"
+                          aria-label={isExpanded ? "Collapse" : "Expand"}
+                        >
+                          <Plus
+                            className={cn(
+                              "size-5 transition-transform duration-200",
+                              isExpanded && "rotate-45"
+                            )}
+                          />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Sub Links */}
+                    {hasSubLinks && isExpanded && (
+                      <div className="pb-4 pl-4 space-y-3">
+                        {link.subLinks?.map((subLink) => (
+                          <Link
+                            key={subLink._key}
+                            href={subLink.href || "#"}
+                            target={subLink.openInNewTab ? "_blank" : undefined}
+                            rel={subLink.openInNewTab ? "noopener noreferrer" : undefined}
+                            className="block text-base text-foreground/70 transition-colors hover:text-foreground"
+                            onClick={onClose}
+                          >
+                            {subLink.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </nav>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -134,9 +306,11 @@ function MobileMenu({
 export function Navbar({
   navbarData: initialNavbarData,
   settingsData: initialSettingsData,
+  drawerData: initialDrawerData,
 }: NavigationData) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -147,6 +321,7 @@ export function Navbar({
       fallbackData: {
         navbarData: initialNavbarData,
         settingsData: initialSettingsData,
+        drawerData: initialDrawerData,
       },
       revalidateOnFocus: false,
       revalidateOnMount: false,
@@ -160,15 +335,14 @@ export function Navbar({
   const navigationData = data || {
     navbarData: initialNavbarData,
     settingsData: initialSettingsData,
+    drawerData: initialDrawerData,
   };
-  const { navbarData, settingsData } = navigationData;
+  const { navbarData, settingsData, drawerData } = navigationData;
   const { columns } = navbarData || {};
   const { logo, siteTitle } = settingsData || {};
 
   // Track scroll position with hysteresis to prevent flickering
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
@@ -180,8 +354,6 @@ export function Navbar({
         // Scrolling up - only untrigger when below 30px
         setIsScrolled(false);
       }
-
-      lastScrollY = scrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -204,6 +376,17 @@ export function Navbar({
     }
   }, [isSearchOpen]);
 
+  // Close drawer when pressing escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isDrawerOpen) {
+        setIsDrawerOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isDrawerOpen]);
+
   // Show skeleton only on initial mount when no fallback data is available
   if (isLoading && !data && !(initialNavbarData && initialSettingsData)) {
     return <NavbarSkeleton />;
@@ -217,6 +400,16 @@ export function Navbar({
     setIsMobileMenuOpen(!isMobileMenuOpen);
     if (isSearchOpen) {
       setIsSearchOpen(false);
+    }
+  };
+
+  const handleDrawerToggle = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+    if (isSearchOpen) {
+      setIsSearchOpen(false);
+    }
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -235,7 +428,7 @@ export function Navbar({
           <div
             className={cn(
               "flex items-center justify-between transition-all duration-300 ease-in-out",
-              isScrolled ? "h-16" : "h-24"
+              isScrolled ? "py-4" : "py-8"
             )}
           >
             {/* Logo */}
@@ -294,7 +487,7 @@ export function Navbar({
             )}
 
             {/* Right side icons with search */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-7">
               {/* Search area - expands when active */}
               <div className={cn(
                 "flex items-center transition-all duration-300 ease-in-out",
@@ -316,12 +509,12 @@ export function Navbar({
                   <button
                     type="button"
                     onClick={handleSearchToggle}
-                    className="p-2 text-foreground/70 transition-colors hover:text-foreground"
+                    className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
                     aria-label="Open search"
                   >
                     <Search className={cn(
                       "transition-all duration-300",
-                      isScrolled ? "size-5" : "size-6"
+                      isScrolled ? "size-5" : "size-7"
                     )} />
                   </button>
                 )}
@@ -332,7 +525,7 @@ export function Navbar({
                 <button
                   type="button"
                   onClick={handleSearchToggle}
-                  className="p-2 ml-4 text-foreground/70 transition-colors hover:text-foreground"
+                  className="p-2 ml-4 text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
                   aria-label="Close search"
                 >
                   <X className="size-5" />
@@ -340,30 +533,31 @@ export function Navbar({
               )}
 
               {/* Mail icon */}
-              <Link
-                href="/contact"
-                className="p-2 text-foreground/70 transition-colors hover:text-foreground"
-                aria-label="Contact"
-              >
-                <Mail className={cn(
-                  "transition-all duration-300",
-                  isScrolled ? "size-5" : "size-6"
-                )} />
-              </Link>
+              {!isSearchOpen && (
+                <Link
+                  href="/contact"
+                  className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
+                  aria-label="Contact"
+                >
+                  <Mail className={cn(
+                    "transition-all duration-300",
+                    isScrolled ? "size-5" : "size-7"
+                  )} />
+                </Link>
+              )}
 
-              {/* Mobile menu button - only on mobile */}
+              {/* Hamburger menu button - visible on all screen sizes */}
               {!isSearchOpen && (
                 <button
                   type="button"
-                  onClick={handleMobileMenuToggle}
-                  className="p-2 text-foreground/70 transition-colors hover:text-foreground md:hidden"
-                  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                  onClick={handleDrawerToggle}
+                  className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
+                  aria-label="Open menu"
                 >
-                  {isMobileMenuOpen ? (
-                    <X className="size-5" />
-                  ) : (
-                    <Menu className="size-5" />
-                  )}
+                  <Menu className={cn(
+                    "transition-all duration-300",
+                    isScrolled ? "size-5" : "size-7"
+                  )} />
                 </button>
               )}
             </div>
@@ -378,7 +572,15 @@ export function Navbar({
         )}
       </header>
 
-      {/* Mobile Menu */}
+      {/* Navigation Drawer */}
+      <NavigationDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        drawerData={drawerData}
+        settingsData={settingsData}
+      />
+
+      {/* Mobile Menu (legacy - kept for backward compatibility) */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}

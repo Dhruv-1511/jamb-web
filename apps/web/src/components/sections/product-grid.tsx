@@ -8,21 +8,24 @@ import { ProductCard } from "../elements/product-card";
 
 type ProductGridBlockProps = PagebuilderType<"productGrid">;
 
+const gridColsMap: Record<string, string> = {
+  "4": "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+  "5": "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
+};
+
 export function ProductGridBlock({
   title,
   columns = "4",
   products,
 }: ProductGridBlockProps) {
-  const gridCols =
-    columns === "6"
-      ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
-      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
+  // Clean columns value - extract only digit (removes invisible Unicode characters from Sanity)
+  const cleanColumns = columns?.replace(/[^\d]/g, "") || "4";
+  const gridCols = gridColsMap[cleanColumns] || gridColsMap["4"];
 
   return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="container py-pagebuilder bg-[#E3E3E3]">
         <motion.h2
-          className="mb-12 text-center font-serif text-3xl font-medium tracking-tight text-jamb-charcoal md:text-4xl"
+          className="mx-auto text-center text-2xl font-medium leading-[36px] mb-8"
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
@@ -44,7 +47,6 @@ export function ProductGridBlock({
             />
           ))}
         </div>
-      </div>
     </section>
   );
 }

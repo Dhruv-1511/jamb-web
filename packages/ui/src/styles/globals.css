@@ -182,3 +182,21 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
+
+@layer utilities {
+  .container {
+    width: 100%;
+    max-width: none;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  @media (min-width: 1920px) {
+    .container {
+      max-width: 1920px;
+    }
+  }
+}
+

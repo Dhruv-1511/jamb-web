@@ -21,54 +21,54 @@ function StandardLayout({
   const isImageLeft = imagePosition === "left";
 
   return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="container py-pagebuilder">
         <div
           className={cn(
-            "grid items-center gap-8 lg:grid-cols-2 lg:gap-16",
+            "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
             isImageLeft && "lg:[&>*:first-child]:order-2"
           )}
         >
           <motion.div
-            className="space-y-6"
+            className="col-span-1 flex flex-col justify-center max-w-lg mx-auto"
             initial={{ opacity: 0, x: isImageLeft ? 20 : -20 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1, x: 0 }}
           >
             {eyebrow && (
-              <p className="font-sans text-sm uppercase tracking-widest text-muted-foreground">
+              <p className="text-base text-black uppercase mb-6 text-center">
                 {eyebrow}
               </p>
             )}
-            <h2 className="font-serif text-4xl font-medium tracking-tight text-jamb-charcoal md:text-5xl lg:text-6xl">
+            <h2 className="text-3xl text-balance font-medium md:text-[34px] mb-8 text-center">
               {title}
             </h2>
             <RichText
-              className="prose-lg text-muted-foreground"
+              className="mb-6 max-md:prose-p:text-sm text-left"
               richText={richText}
             />
-            <SanityButtons buttons={buttons} className="pt-4" />
+            <SanityButtons buttons={buttons} className="flex !flex-col gap-3" />
           </motion.div>
 
           <motion.div
-            className="relative aspect-[4/3] overflow-hidden bg-jamb-beige"
+            className="col-span-1 flex items-center justify-center"
             initial={{ opacity: 0, x: isImageLeft ? -20 : 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1, x: 0 }}
           >
+            <div className="w-full relative md:mx-8 	">
             {image && (
               <SanityImage
-                className="h-full w-full rounded-none object-cover"
-                height={800}
+                className="max-h-full w-full !rounded-none object-cover"
+                height={1000}
                 image={image}
-                width={1200}
+                width={800}
               />
             )}
+            </div>
           </motion.div>
         </div>
-      </div>
     </section>
   );
 }
