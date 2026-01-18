@@ -253,19 +253,45 @@ export const queryGenericPageOGData = defineQuery(`
 export const queryFooterData = defineQuery(`
   *[_type == "footer" && _id == "footer"][0]{
     _id,
-    subtitle,
+    contactInfo {
+      phone,
+      address
+    },
+    email,
+    newsletter {
+      title,
+      description,
+      placeholder,
+      buttonText,
+      privacyText,
+      "privacyLinkHref": select(
+        privacyLink.type == "internal" => privacyLink.internal->slug.current,
+        privacyLink.type == "external" => privacyLink.external,
+        "/privacy"
+      ),
+      "privacyLinkOpenInNewTab": privacyLink.openInNewTab
+    },
+    "socialLinks": *[_type == "settings"][0].socialLinks {
+      instagram,
+      youtube,
+      pinterest,
+      vimeo
+    },
     columns[]{
       _key,
-      title,
-      links[]{
+      sections[]{
         _key,
-        name,
-        "openInNewTab": url.openInNewTab,
-        "href": select(
-          url.type == "internal" => url.internal->slug.current,
-          url.type == "external" => url.external,
-          url.href
-        ),
+        title,
+        links[]{
+          _key,
+          name,
+          "openInNewTab": url.openInNewTab,
+          "href": select(
+            url.type == "internal" => url.internal->slug.current,
+            url.type == "external" => url.external,
+            url.href
+          ),
+        }
       }
     }
   }

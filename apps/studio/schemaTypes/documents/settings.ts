@@ -37,6 +37,18 @@ const socialLinks = defineField({
       description: "Full URL to your YouTube channel",
       type: "string",
     }),
+    defineField({
+      name: "pinterest",
+      title: "Pinterest URL",
+      description: "Full URL to your Pinterest profile",
+      type: "string",
+    }),
+    defineField({
+      name: "vimeo",
+      title: "Vimeo URL",
+      description: "Full URL to your Vimeo channel",
+      type: "string",
+    }),
   ],
 });
 
