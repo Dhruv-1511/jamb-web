@@ -23,31 +23,6 @@ export type CategoryLinks = {
   }>;
 };
 
-export type StoryCards = {
-  _type: "storyCards";
-  title: string;
-  stories?: Array<{
-    title: string;
-    subtitle?: string;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
-    };
-    url?: CustomUrl;
-    _type: "storyCard";
-    _key: string;
-  }>;
-};
-
 export type ProductGrid = {
   _type: "productGrid";
   title: string;
@@ -117,74 +92,6 @@ export type SplitFeature = {
   overlayTitle?: string;
 };
 
-export type SubscribeNewsletter = {
-  _type: "subscribeNewsletter";
-  title?: string;
-  subTitle?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  helperText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-};
-
-export type Cta = {
-  _type: "cta";
-  eyebrow?: string;
-  title?: string;
-  richText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  buttons?: Array<{
-    _key: string;
-  } & Button>;
-};
-
 export type Hero = {
   _type: "hero";
   badge?: string;
@@ -229,15 +136,9 @@ export type PageBuilder = Array<{
   _key: string;
 } & Hero | {
   _key: string;
-} & Cta | {
-  _key: string;
-} & SubscribeNewsletter | {
-  _key: string;
 } & SplitFeature | {
   _key: string;
 } & ProductGrid | {
-  _key: string;
-} & StoryCards | {
   _key: string;
 } & CategoryLinks>;
 
@@ -748,7 +649,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = CategoryLinks | StoryCards | ProductGrid | SplitFeature | SubscribeNewsletter | Cta | Hero | PageBuilder | Button | RichText | SanityImageCrop | SanityImageHotspot | CustomUrl | Redirect | Slug | DrawerNavigation | Navbar | LucideIcon | Footer | Settings | HomePage | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = CategoryLinks | ProductGrid | SplitFeature | Hero | PageBuilder | Button | RichText | SanityImageCrop | SanityImageHotspot | CustomUrl | Redirect | Slug | DrawerNavigation | Navbar | LucideIcon | Footer | Settings | HomePage | Page | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../web/src/lib/sanity/query.ts
 // Variable: queryImageType
@@ -785,43 +686,6 @@ export type QueryHomePageDataResult = {
     links: Array<{
       _key: string;
       text: string;
-      openInNewTab: boolean | null;
-      href: string | null;
-    }> | null;
-  } | {
-    _key: string;
-    _type: "cta";
-    eyebrow?: string;
-    title?: string;
-    richText: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "h2" | "h3" | "h4" | "h5" | "h6" | "inline" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-        openInNewTab: boolean | null;
-        href: string | "#" | null;
-      } | {
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-    buttons: Array<{
-      text: string | null;
-      variant: "default" | "link" | "outline" | "secondary" | null;
-      _key: string;
-      _type: "button";
       openInNewTab: boolean | null;
       href: string | null;
     }> | null;
@@ -961,86 +825,6 @@ export type QueryHomePageDataResult = {
     imagePosition?: "left" | "right";
     layout?: "centered" | "overlay" | "standard";
     overlayTitle?: string;
-  } | {
-    _key: string;
-    _type: "storyCards";
-    title: string;
-    stories: Array<{
-      title: string;
-      subtitle?: string;
-      image: {
-        id: string | null;
-        preview: string | null;
-        alt: string | "untitled";
-        hotspot: {
-          x: number;
-          y: number;
-        } | null;
-        crop: {
-          bottom: number;
-          left: number;
-          right: number;
-          top: number;
-        } | null;
-      };
-      url?: CustomUrl;
-      _type: "storyCard";
-      _key: string;
-      openInNewTab: boolean | null;
-      href: string | null;
-    }> | null;
-  } | {
-    _key: string;
-    _type: "subscribeNewsletter";
-    title?: string;
-    subTitle: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "h2" | "h3" | "h4" | "h5" | "h6" | "inline" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-        openInNewTab: boolean | null;
-        href: string | "#" | null;
-      } | {
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-    helperText: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "h2" | "h3" | "h4" | "h5" | "h6" | "inline" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-        openInNewTab: boolean | null;
-        href: string | "#" | null;
-      } | {
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
   }> | null;
   seoTitle?: string;
   seoDescription?: string;
@@ -1094,43 +878,6 @@ export type QuerySlugPageDataResult = {
     }> | null;
   } | {
     _key: string;
-    _type: "cta";
-    eyebrow?: string;
-    title?: string;
-    richText: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "h2" | "h3" | "h4" | "h5" | "h6" | "inline" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-        openInNewTab: boolean | null;
-        href: string | "#" | null;
-      } | {
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-    buttons: Array<{
-      text: string | null;
-      variant: "default" | "link" | "outline" | "secondary" | null;
-      _key: string;
-      _type: "button";
-      openInNewTab: boolean | null;
-      href: string | null;
-    }> | null;
-  } | {
-    _key: string;
     _type: "hero";
     badge?: string;
     title?: string;
@@ -1265,86 +1012,6 @@ export type QuerySlugPageDataResult = {
     imagePosition?: "left" | "right";
     layout?: "centered" | "overlay" | "standard";
     overlayTitle?: string;
-  } | {
-    _key: string;
-    _type: "storyCards";
-    title: string;
-    stories: Array<{
-      title: string;
-      subtitle?: string;
-      image: {
-        id: string | null;
-        preview: string | null;
-        alt: string | "untitled";
-        hotspot: {
-          x: number;
-          y: number;
-        } | null;
-        crop: {
-          bottom: number;
-          left: number;
-          right: number;
-          top: number;
-        } | null;
-      };
-      url?: CustomUrl;
-      _type: "storyCard";
-      _key: string;
-      openInNewTab: boolean | null;
-      href: string | null;
-    }> | null;
-  } | {
-    _key: string;
-    _type: "subscribeNewsletter";
-    title?: string;
-    subTitle: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "h2" | "h3" | "h4" | "h5" | "h6" | "inline" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-        openInNewTab: boolean | null;
-        href: string | "#" | null;
-      } | {
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-    helperText: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "h2" | "h3" | "h4" | "h5" | "h6" | "inline" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<{
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-        openInNewTab: boolean | null;
-        href: string | "#" | null;
-      } | {
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-      }> | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
   }> | null;
   seoTitle?: string;
   seoDescription?: string;

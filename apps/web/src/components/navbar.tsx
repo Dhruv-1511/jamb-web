@@ -4,7 +4,7 @@ import { env } from "@workspace/env/client";
 import { cn } from "@workspace/ui/lib/utils";
 import { Mail, Menu, Plus, Search, X } from "lucide-react";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 
 import type {
@@ -174,12 +174,17 @@ function NavigationDrawer({
                 const isExpanded = expandedItems.includes(link._key);
 
                 return (
-                  <div key={link._key} className="border-b border-foreground/20">
+                  <div
+                    key={link._key}
+                    className="border-b border-foreground/20"
+                  >
                     <div className="flex items-center justify-between py-4">
                       <Link
                         href={link.href || "#"}
                         target={link.openInNewTab ? "_blank" : undefined}
-                        rel={link.openInNewTab ? "noopener noreferrer" : undefined}
+                        rel={
+                          link.openInNewTab ? "noopener noreferrer" : undefined
+                        }
                         className="text-lg font-medium text-foreground transition-colors hover:text-foreground/70"
                         onClick={!hasSubLinks ? onClose : undefined}
                       >
@@ -210,7 +215,11 @@ function NavigationDrawer({
                             key={subLink._key}
                             href={subLink.href || "#"}
                             target={subLink.openInNewTab ? "_blank" : undefined}
-                            rel={subLink.openInNewTab ? "noopener noreferrer" : undefined}
+                            rel={
+                              subLink.openInNewTab
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
                             className="block text-base text-foreground/70 transition-colors hover:text-foreground"
                             onClick={onClose}
                           >
@@ -233,7 +242,7 @@ function NavigationDrawer({
 function MobileMenu({
   isOpen,
   onClose,
-  navbarData
+  navbarData,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -414,7 +423,7 @@ export function Navbar({
   };
 
   // Get navigation links for center display
-  const navLinks = columns?.filter(col => col.type === "link") || [];
+  const navLinks = columns?.filter((col) => col.type === "link") || [];
 
   return (
     <>
@@ -473,7 +482,7 @@ export function Navbar({
                       <span className="text-foreground/40 mx-2">|</span>
                     )}
                     <Link
-                      href={link.type === "link" ? (link.href || "#") : "#"}
+                      href={link.type === "link" ? link.href || "#" : "#"}
                       className={cn(
                         "text-foreground/60 transition-all duration-300 hover:text-foreground",
                         isScrolled ? "text-base" : "text-lg"
@@ -489,10 +498,12 @@ export function Navbar({
             {/* Right side icons with search */}
             <div className="flex items-center gap-7">
               {/* Search area - expands when active */}
-              <div className={cn(
-                "flex items-center transition-all duration-300 ease-in-out",
-                isSearchOpen ? "flex-1" : ""
-              )}>
+              <div
+                className={cn(
+                  "flex items-center transition-all duration-300 ease-in-out",
+                  isSearchOpen ? "flex-1" : ""
+                )}
+              >
                 {isSearchOpen ? (
                   // Expanded search input
                   <div className="flex items-center gap-3 flex-1">
@@ -512,10 +523,12 @@ export function Navbar({
                     className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
                     aria-label="Open search"
                   >
-                    <Search className={cn(
-                      "transition-all duration-300",
-                      isScrolled ? "size-5" : "size-7"
-                    )} />
+                    <Search
+                      className={cn(
+                        "transition-all duration-300",
+                        isScrolled ? "size-5" : "size-7"
+                      )}
+                    />
                   </button>
                 )}
               </div>
@@ -539,10 +552,12 @@ export function Navbar({
                   className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
                   aria-label="Contact"
                 >
-                  <Mail className={cn(
-                    "transition-all duration-300",
-                    isScrolled ? "size-5" : "size-7"
-                  )} />
+                  <Mail
+                    className={cn(
+                      "transition-all duration-300",
+                      isScrolled ? "size-5" : "size-7"
+                    )}
+                  />
                 </Link>
               )}
 
@@ -554,10 +569,12 @@ export function Navbar({
                   className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
                   aria-label="Open menu"
                 >
-                  <Menu className={cn(
-                    "transition-all duration-300",
-                    isScrolled ? "size-5" : "size-7"
-                  )} />
+                  <Menu
+                    className={cn(
+                      "transition-all duration-300",
+                      isScrolled ? "size-5" : "size-7"
+                    )}
+                  />
                 </button>
               )}
             </div>

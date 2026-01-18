@@ -58,7 +58,10 @@ const drawerLink = defineField({
     prepare({ title, subLinks = [] }) {
       return {
         title: title || "Untitled Link",
-        subtitle: subLinks.length > 0 ? `${subLinks.length} sub-link${subLinks.length === 1 ? "" : "s"}` : "No sub-links",
+        subtitle:
+          subLinks.length > 0
+            ? `${subLinks.length} sub-link${subLinks.length === 1 ? "" : "s"}`
+            : "No sub-links",
         media: subLinks.length > 0 ? Plus : Menu,
       };
     },

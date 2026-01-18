@@ -6,6 +6,12 @@ import { page } from "@/schemaTypes/documents/page";
 import { redirect } from "@/schemaTypes/documents/redirect";
 import { settings } from "@/schemaTypes/documents/settings";
 
-export const singletons = [homePage, settings, footer, navbar, drawerNavigation];
+export const singletons = [
+  homePage,
+  settings,
+  footer,
+  navbar,
+  drawerNavigation,
+];
 
 export const documents = [page, ...singletons, redirect];

@@ -98,7 +98,8 @@ const footerColumn = defineField({
       name: "sections",
       type: "array",
       title: "Sections",
-      description: "Sections in this column (e.g., 'Reproduction Fireplaces' and 'Antique Chimneypieces' in the same column)",
+      description:
+        "Sections in this column (e.g., 'Reproduction Fireplaces' and 'Antique Chimneypieces' in the same column)",
       of: [footerSection],
     }),
   ],
@@ -130,7 +131,8 @@ const contactInfo = defineField({
       name: "phone",
       type: "string",
       title: "Phone Number",
-      description: "Phone number displayed in footer (e.g., +44 (0) 207 730 2122)",
+      description:
+        "Phone number displayed in footer (e.g., +44 (0) 207 730 2122)",
     }),
     defineField({
       name: "address",
@@ -161,7 +163,8 @@ const newsletter = defineField({
       rows: 2,
       title: "Description",
       description: "Description text below the newsletter title",
-      initialValue: "Sign up to receive our curated newsletter detailing the latest acquisitions, product designs and news from our collections.",
+      initialValue:
+        "Sign up to receive our curated newsletter detailing the latest acquisitions, product designs and news from our collections.",
     }),
     defineField({
       name: "placeholder",

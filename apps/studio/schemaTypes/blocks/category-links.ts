@@ -56,7 +56,10 @@ export const categoryLinks = defineType({
       links: "links",
     },
     prepare({ links = [] }) {
-      const linkTexts = links.slice(0, 3).map((l: { text?: string }) => l.text).join(" | ");
+      const linkTexts = links
+        .slice(0, 3)
+        .map((l: { text?: string }) => l.text)
+        .join(" | ");
       return {
         title: linkTexts || "Category Links",
         subtitle: `${links.length} link${links.length === 1 ? "" : "s"}`,

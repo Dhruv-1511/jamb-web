@@ -84,7 +84,7 @@
 
 @theme inline {
   --font-serif: var(--font-serif);
-  --font-galaxie: var(--font-serif), 'Cormorant Garamond', serif;
+  --font-galaxie: var(--font-serif), "Copernicus", serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-jamb-cream: var(--jamb-cream);
@@ -182,4 +182,3 @@ html {
     }
   }
 }
-

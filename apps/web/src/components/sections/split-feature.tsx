@@ -22,42 +22,42 @@ function StandardLayout({
 
   return (
     <section className="container py-pagebuilder">
-        <div
-          className={cn(
-            "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
-            isImageLeft && "lg:[&>*:first-child]:order-2"
-          )}
+      <div
+        className={cn(
+          "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
+          isImageLeft && "lg:[&>*:first-child]:order-2"
+        )}
+      >
+        <motion.div
+          className="col-span-1 flex flex-col justify-center max-w-lg mx-auto"
+          initial={{ opacity: 0, x: isImageLeft ? 20 : -20 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          whileInView={{ opacity: 1, x: 0 }}
         >
-          <motion.div
-            className="col-span-1 flex flex-col justify-center max-w-lg mx-auto"
-            initial={{ opacity: 0, x: isImageLeft ? 20 : -20 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, x: 0 }}
-          >
-            {eyebrow && (
-              <p className="text-base text-black uppercase mb-6 text-center">
-                {eyebrow}
-              </p>
-            )}
-            <h2 className="text-3xl text-balance font-medium md:text-[34px] mb-8 text-center">
-              {title}
-            </h2>
-            <RichText
-              className="mb-6 max-md:prose-p:text-sm text-left"
-              richText={richText}
-            />
-            <SanityButtons buttons={buttons} className="flex !flex-col gap-3" />
-          </motion.div>
+          {eyebrow && (
+            <p className="text-base font-medium uppercase mb-6 text-center leading-6">
+              {eyebrow}
+            </p>
+          )}
+          <h2 className="text-3xl text-balance font-medium md:text-4xl mb-8 text-center">
+            {title}
+          </h2>
+          <RichText
+            className="mb-6 max-md:prose-p:text-sm text-left font-medium leading-6"
+            richText={richText}
+          />
+          <SanityButtons buttons={buttons} className="flex !flex-col gap-3 " />
+        </motion.div>
 
-          <motion.div
-            className="col-span-1 flex items-center justify-center"
-            initial={{ opacity: 0, x: isImageLeft ? -20 : 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            whileInView={{ opacity: 1, x: 0 }}
-          >
-            <div className="w-full relative md:mx-8 	">
+        <motion.div
+          className="col-span-1 flex items-center justify-center"
+          initial={{ opacity: 0, x: isImageLeft ? -20 : 20 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          whileInView={{ opacity: 1, x: 0 }}
+        >
+          <div className="w-full relative md:mx-8 	">
             {image && (
               <SanityImage
                 className="max-h-full w-full !rounded-none object-cover"
@@ -66,9 +66,9 @@ function StandardLayout({
                 width={800}
               />
             )}
-            </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

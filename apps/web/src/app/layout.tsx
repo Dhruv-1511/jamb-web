@@ -1,6 +1,7 @@
 import "@workspace/ui/globals.css";
 
-import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { Suspense } from "react";
@@ -24,10 +25,36 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 });
 
-const fontSerif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const fontSerif = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Copernicus-Book.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Copernicus-BookItalic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/Copernicus-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Copernicus-Semibold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Copernicus-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-serif",
+  display: "swap",
 });
 
 export default async function RootLayout({
@@ -44,7 +71,11 @@ export default async function RootLayout({
         className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} antialiased`}
       >
         <Providers>
-          <Navbar navbarData={nav.navbarData} settingsData={nav.settingsData} drawerData={nav.drawerData} />
+          <Navbar
+            navbarData={nav.navbarData}
+            settingsData={nav.settingsData}
+            drawerData={nav.drawerData}
+          />
           {children}
           <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />

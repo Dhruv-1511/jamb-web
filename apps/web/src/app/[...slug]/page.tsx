@@ -71,6 +71,9 @@ export async function generateStaticParams() {
 // Allow dynamic params for paths not generated at build time
 export const dynamicParams = true;
 
+// Disable static caching to ensure fresh data
+export const dynamic = "force-dynamic";
+
 export default async function SlugPage({
   params,
 }: {

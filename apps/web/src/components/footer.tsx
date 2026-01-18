@@ -6,9 +6,9 @@ import type { QueryFooterDataResult } from "@/lib/sanity/sanity.types";
 import { NewsletterForm } from "./newsletter-form";
 import {
   InstagramIcon,
-  YoutubeIcon,
   PinterestIcon,
   VimeoIcon,
+  YoutubeIcon,
 } from "./social-icons";
 
 type FooterProps = {
@@ -62,8 +62,8 @@ export async function FooterServer() {
 
 export function FooterSkeleton() {
   return (
-    <footer className="bg-[#d4d4d4] px-6 py-12 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <footer className="bg-[#d4d4d4] p-8">
+      <div className="mx-auto">
         {/* Top section skeleton */}
         <div className="mb-7 grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
           <div className="col-span-2 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-10">
@@ -101,13 +101,13 @@ export function Footer({ data }: FooterProps) {
 
   return (
     <footer className="bg-[#d4d4d4] px-6 py-12 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto">
         {/* Top section: Contact, Email, Newsletter */}
         <div className="mb-7 grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
           {/* Contact & Email - spans 2 columns */}
           <div className="col-span-2 grid grid-cols-1 gap-6 font-medium text-[#9c9c9d] md:grid-cols-2 lg:gap-10">
             {/* Contact Info */}
-            <div className="text-base leading-6">
+            <div className="leading-6">
               {contactInfo?.phone && (
                 <p className="mb-0">Tel: {contactInfo.phone}</p>
               )}
@@ -118,18 +118,7 @@ export function Footer({ data }: FooterProps) {
               ))}
             </div>
 
-            {/* Email & Social Links */}
-            <div className="text-base leading-6">
-              {email && (
-                <a
-                  href={`mailto:${email}`}
-                  className="mb-3 block transition-colors hover:text-primary"
-                >
-                  {email}
-                </a>
-              )}
-              <SocialLinks socialLinks={socialLinks} />
-            </div>
+            
           </div>
 
           {/* Empty spacer column */}

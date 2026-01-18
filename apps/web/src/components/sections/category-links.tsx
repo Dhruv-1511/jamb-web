@@ -15,14 +15,12 @@ export function CategoryLinksBlock({ links }: CategoryLinksBlockProps) {
         <nav className="flex items-center justify-center gap-2 flex-wrap font-medium">
           {links.map((link, index) => (
             <div key={link._key} className="flex items-center">
-              {index > 0 && (
-                <span className="text-foreground/40 mx-3">|</span>
-              )}
+              {index > 0 && <span className="text-foreground/40 mx-3">|</span>}
               <Link
                 href={link.href || "#"}
                 target={link.openInNewTab ? "_blank" : undefined}
                 rel={link.openInNewTab ? "noopener noreferrer" : undefined}
-                className="text-[#9C9C9D] text-sm transition-colors hover:text-black"
+                className="text-[#9C9C9D] font-medium transition-colors hover:text-black"
               >
                 {link.text}
               </Link>

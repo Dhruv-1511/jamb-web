@@ -34,7 +34,7 @@ export function ProductCard({
       viewport={{ once: true }}
       whileInView={{ opacity: 1, y: 0 }}
     >
-      <div className="relative overflow-hidden w-full aspect-[4/3]">
+      <div className="relative overflow-hidden w-full aspect-[4/3] h-64">
         {image && (
           <SanityImage
             style={{
@@ -49,19 +49,21 @@ export function ProductCard({
               objectPosition: "center",
               color: "transparent",
             }}
-            className="w-full"
+            className="w-full max-h-full"
             height={600}
             image={image}
             width={600}
           />
         )}
       </div>
-      <div className="mt-4 space-y-1 text-center">
-        <h3 className="truncate text-center text-lg leading-[150%] text-[#5C5C5C]">
+      <div className="mt-3 text-center">
+        <h3 className="truncate text-center font-bold leading-[150%] text-[#737373]">
           {title}
         </h3>
         {subtitle && (
-          <p className="text-center text-base leading-[24px] text-[#757575]">{subtitle}</p>
+          <p className="text-center font-medium leading-[24px] text-[#737373]">
+            {subtitle}
+          </p>
         )}
       </div>
     </motion.article>

@@ -25,11 +25,6 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
         <h3 className="mb-2 text-base font-medium leading-6 text-[#9c9c9d]">
           {newsletter.title || "Newsletter"}
         </h3>
-        {newsletter.description && (
-          <p className="mb-4 text-sm text-muted-foreground">
-            {newsletter.description}
-          </p>
-        )}
         <div className="flex gap-0.5">
           <input
             type="email"
@@ -45,16 +40,14 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <button
-          type="button"
-          role="checkbox"
-          aria-checked={agreed}
-          onClick={() => setAgreed(!agreed)}
-          className={`mb-0.5 h-4 w-4 shrink-0 rounded-full border border-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-            agreed ? "border-gray-400 bg-gray-400" : ""
-          }`}
+        <input
+          type="radio"
+          id="privacy-agreement"
+          checked={agreed}
+          onChange={(e) => setAgreed(e.target.checked)}
+          className="h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-400 checked:border-gray-400 checked:bg-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 checked:[background-image:radial-gradient(circle,#fff_35%,transparent_35%)]"
         />
-        <p className="text-base text-[#9c9c9d]">
+        <label htmlFor="privacy-agreement" className="cursor-pointer text-[#9c9c9d] font-medium">
           I agree to our{" "}
           <Link
             href={newsletter.privacyLinkHref || "/privacy"}
@@ -64,11 +57,11 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
                 ? "noopener noreferrer"
                 : undefined
             }
-            className="text-[#757575] transition-colors hover:text-primary"
+            className="hover:text-primary transition-colors "
           >
             Privacy Policy
           </Link>
-        </p>
+        </label>
       </div>
     </form>
   );

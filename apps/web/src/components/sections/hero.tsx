@@ -3,9 +3,7 @@ import { SanityImage } from "../elements/sanity-image";
 
 type HeroBlockProps = PagebuilderType<"hero">;
 
-export function HeroBlock({
-  image,
-}: HeroBlockProps) {
+export function HeroBlock({ image }: HeroBlockProps) {
   return (
     <section id="hero" className="container">
       {image && (

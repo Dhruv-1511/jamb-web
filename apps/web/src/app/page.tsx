@@ -1,8 +1,10 @@
-// import { PageBuilder } from "@/components/pagebuilder";
 import { PageBuilder } from "@/components/pagebuilder";
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryHomePageData } from "@/lib/sanity/query";
 import { getSEOMetadata } from "@/lib/seo";
+
+// Disable static caching for this page to ensure fresh data
+export const dynamic = "force-dynamic";
 
 async function fetchHomePageData() {
   return await sanityFetch({
@@ -33,7 +35,7 @@ export default async function Page() {
     return <div>No home page data</div>;
   }
 
-  const { _id, _type, pageBuilder } = homePageData ?? {};
+  const { _id, _type, pageBuilder } = homePageData;
 
   return <PageBuilder id={_id} pageBuilder={pageBuilder ?? []} type={_type} />;
 }

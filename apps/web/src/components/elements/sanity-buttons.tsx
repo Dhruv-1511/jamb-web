@@ -25,12 +25,7 @@ function SanityButton({
   }
 
   return (
-    <Button
-      variant={variant}
-      {...props}
-      asChild
-      className={cn("", className)}
-    >
+    <Button variant={variant} {...props} asChild className={cn("text-base", className)}>
       <Link
         aria-label={`Navigate to ${text}`}
         href={href || "#"}
@@ -54,7 +49,9 @@ export function SanityButtons({
   }
 
   return (
-    <div className={cn("flex flex-col gap-4 sm:flex-row items-center", className)}>
+    <div
+      className={cn("flex flex-col gap-4 sm:flex-row items-center", className)}
+    >
       {buttons.map((button) => (
         <SanityButton
           key={`button-${button._key}`}

@@ -7,12 +7,9 @@ import { useCallback, useMemo } from "react";
 
 import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
 import { CategoryLinksBlock } from "./sections/category-links";
-import { CTABlock } from "./sections/cta";
 import { HeroBlock } from "./sections/hero";
 import { ProductGridBlock } from "./sections/product-grid";
 import { SplitFeatureBlock } from "./sections/split-feature";
-import { StoryCardsBlock } from "./sections/story-cards";
-import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 
 // More specific and descriptive type aliases
 type PageBuilderBlock = NonNullable<
@@ -34,12 +31,9 @@ type SanityDataAttributeConfig = {
 // Strongly typed component mapping with proper component signatures
 // biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering>
 const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
-  cta: CTABlock,
   hero: HeroBlock,
-  subscribeNewsletter: SubscribeNewsletter,
   splitFeature: SplitFeatureBlock,
   productGrid: ProductGridBlock,
-  storyCards: StoryCardsBlock,
   categoryLinks: CategoryLinksBlock,
 };
 
@@ -169,10 +163,7 @@ export function PageBuilder({
   }
 
   return (
-    <main
-      className="flex flex-col"
-      data-sanity={containerDataAttribute}
-    >
+    <main className="flex flex-col" data-sanity={containerDataAttribute}>
       {blocks.map(renderBlock)}
     </main>
   );
