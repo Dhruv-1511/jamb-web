@@ -16,7 +16,8 @@ import { ErrorStates } from "@/components/url-slug/error-states";
 import { useSlugValidation } from "@/hooks/use-slug-validation";
 import { generateSlugFromTitle } from "@/utils/slug-validation";
 
-const presentationOriginUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;
+const presentationOriginUrl =
+  process.env.SANITY_STUDIO_PRESENTATION_URL ?? "https://jambweb.vercel.app/";
 
 // Styled components
 const CopyButton = styled(Button)`
