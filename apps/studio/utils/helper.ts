@@ -168,16 +168,18 @@ export function createPageTemplate() {
  * @throws {Error} If SANITY_STUDIO_PRESENTATION_URL is not set in production
  */
 export const getPresentationUrl = () => {
-  if (process.env.NODE_ENV === "development") {
-    return "http://localhost:3000";
+  const presentationUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;
+
+  if (presentationUrl) {
+    return presentationUrl;
   }
 
-  const presentationUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;
-  if (!presentationUrl) {
-    throw new Error(
-      "SANITY_STUDIO_PRESENTATION_URL must be set in production environment"
+  if (process.env.NODE_ENV === "production") {
+    // biome-ignore lint/suspicious/noConsole: intentional logging
+    console.warn(
+      "SANITY_STUDIO_PRESENTATION_URL is not set in production. Falling back to localhost:3000 for preview."
     );
   }
 
-  return presentationUrl;
+  return "http://localhost:3000";
 };
