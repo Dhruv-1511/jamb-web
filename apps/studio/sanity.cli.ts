@@ -4,17 +4,20 @@ import tsconfigPaths from "vite-plugin-tsconfig-paths";
 
 const logger = new Logger("SanityCLI");
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
-const dataset = process.env.SANITY_STUDIO_DATASET;
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || "gqhcqy1g";
+const dataset = process.env.SANITY_STUDIO_DATASET || "production";
 
-if (!projectId || projectId === "project_id")
-  throw new Error(
-    "Missing required environment variable: SANITY_STUDIO_PROJECT_ID"
+if (!process.env.SANITY_STUDIO_PROJECT_ID) {
+  logger.warn(
+    "SANITY_STUDIO_PROJECT_ID is missing. Using fallback for configuration."
   );
-if (!dataset || dataset === "dataset")
-  throw new Error(
-    "Missing required environment variable: SANITY_STUDIO_DATASET"
+}
+
+if (!process.env.SANITY_STUDIO_DATASET) {
+  logger.warn(
+    "SANITY_STUDIO_DATASET is missing. Using fallback for configuration."
   );
+}
 
 /**
  * Returns the correct studio host based on environment variables.
