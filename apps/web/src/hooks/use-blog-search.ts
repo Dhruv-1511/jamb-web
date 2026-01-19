@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import type { Blog } from "@/types";
+// import type { Blog } from "@/types";
+type Blog = any;
 import { useDebounce } from "./use-debounce";
 
 const SEARCH_DEBOUNCE_MS = 400;

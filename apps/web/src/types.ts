@@ -19,7 +19,7 @@ export type SanityButtonProps = NonNullable<
 export type SanityImageProps = NonNullable<QueryImageTypeResult>;
 
 export type SanityRichTextProps = NonNullable<
-  PagebuilderType<"cta">
+  PagebuilderType<"hero">
 >["richText"];
 
 export type SanityRichTextBlock = Extract<
