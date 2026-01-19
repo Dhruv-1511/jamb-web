@@ -16,8 +16,8 @@ import type {
 import { client, urlFor } from "@/lib/sanity/client";
 import { querySettingsData } from "@/lib/sanity/query";
 import type {
-  QueryBlogSlugPageDataResult,
   QuerySettingsDataResult,
+  QuerySlugPageDataResult,
 } from "@/lib/sanity/sanity.types";
 import { getBaseUrl, handleErrors } from "@/utils";
 
@@ -126,7 +126,7 @@ function buildSafeImageUrl(image?: { id?: string | null }) {
 
 // Article JSON-LD Component
 type ArticleJsonLdProps = {
-  article: QueryBlogSlugPageDataResult;
+  article: any;
   settings?: QuerySettingsDataResult;
 };
 export function ArticleJsonLd({
@@ -262,7 +262,7 @@ export function WebSiteJsonLd({ settings }: WebSiteJsonLdProps) {
 // Combined JSON-LD Component for pages with multiple structured data
 type CombinedJsonLdProps = {
   settings?: QuerySettingsDataResult;
-  article?: QueryBlogSlugPageDataResult;
+  article?: any;
   faqs?: FlexibleFaq[];
   includeWebsite?: boolean;
   includeOrganization?: boolean;
