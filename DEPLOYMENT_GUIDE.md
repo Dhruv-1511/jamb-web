@@ -79,11 +79,62 @@ SANITY_API_WRITE_TOKEN=your-write-token
 
 ---
 
-## Part 2: Deploy Sanity Studio
+## Part 2: Deploy Sanity Studio to Vercel
 
-You have two options: **Automatic (via GitHub Actions)** or **Manual**.
+You can deploy Sanity Studio to Vercel alongside your web app. This keeps everything in one place!
 
-### Option A: Automatic Deployment (Recommended)
+### Step 1: Create Second Vercel Project for Studio
+
+1. Go to [vercel.com](https://vercel.com) and sign in
+2. Click **"Add New..."** → **"Project"**
+3. Import the **same** GitHub repository
+4. Configure the project:
+   - **Framework Preset**: Other (or Static Site)
+   - **Root Directory**: `apps/studio` ⚠️ **IMPORTANT**
+   - **Build Command**: Leave default (Vercel will use `apps/studio/vercel.json` config)
+   - **Output Directory**: `dist` (Vercel will use `apps/studio/vercel.json` config)
+   - **Install Command**: Leave default (Vercel will use `apps/studio/vercel.json` config)
+
+**Note**: The `apps/studio/vercel.json` file is already configured for this setup.
+
+### Step 2: Configure Environment Variables for Studio
+
+Go to **Settings** → **Environment Variables** and add:
+
+```
+SANITY_STUDIO_PROJECT_ID=your-project-id
+SANITY_STUDIO_DATASET=production
+SANITY_STUDIO_TITLE=Your Studio Title
+SANITY_STUDIO_PRESENTATION_URL=https://your-web-app.vercel.app
+```
+
+**Note**: You don't need `SANITY_STUDIO_PRODUCTION_HOSTNAME` when deploying to Vercel - Vercel will provide the URL.
+
+### Step 3: Deploy Studio
+
+1. Click **"Deploy"**
+2. Wait for the build to complete
+3. Your studio will be live at `https://your-studio-project.vercel.app`
+
+### Step 4: Update Web App Environment Variables
+
+After the studio is deployed, update your web app's environment variables:
+
+1. Go to your **web app** Vercel project
+2. Navigate to **Settings** → **Environment Variables**
+3. Update `NEXT_PUBLIC_SANITY_STUDIO_URL` to your Vercel studio URL:
+   ```
+   NEXT_PUBLIC_SANITY_STUDIO_URL=https://your-studio-project.vercel.app
+   ```
+4. Redeploy your web app
+
+---
+
+## Alternative: Deploy Studio to Sanity Hosting
+
+If you prefer to use Sanity's hosting instead of Vercel for the studio, you can use the GitHub Actions workflow or manual deployment method below.
+
+### Option A: Automatic Deployment via GitHub Actions
 
 #### Step 1: Set Up GitHub Secrets
 
@@ -105,7 +156,7 @@ SANITY_STUDIO_PRODUCTION_HOSTNAME=your-studio-hostname
 2. Select your project
 3. Go to **API** → **Tokens**
 4. Create a token with **Deploy Studio** permission
-skFZWoDeKMP1wyhntLhXN9wIB9V7AgikliFEPjeYNYmZ9W3lJChBfhNOAldPFNHNGm8j0TFvKxi003522QQpMjBSC4ym7M3y8eqgDgX8xFaUn837rwjkcRH1J3cpwUsyMcuUyP4TYwcZ2UJ0gzmZKl1hCSePQxWEqX0U5XwbgSw2pUE9BUTT
+
 **About SANITY_STUDIO_PRODUCTION_HOSTNAME:**
 - This will be your studio subdomain
 - Example: If you set `my-project`, your studio will be at `https://my-project.sanity.studio`
@@ -142,7 +193,7 @@ Your studio will be live at: `https://<SANITY_STUDIO_PRODUCTION_HOSTNAME>.sanity
 
 ---
 
-### Option B: Manual Deployment
+### Option B: Manual Deployment to Sanity
 
 #### Step 1: Set Environment Variables Locally
 
@@ -178,16 +229,14 @@ SANITY_STUDIO_PRESENTATION_URL=https://your-web-app.vercel.app
 
 ---
 
-## Part 3: Update Environment Variables After Deployment
+## Part 3: Summary - Both Apps on Vercel
 
-After both deployments are complete, update your Vercel environment variables:
+After deploying both apps to Vercel, you'll have:
 
-1. Go to Vercel project **Settings** → **Environment Variables**
-2. Update `NEXT_PUBLIC_SANITY_STUDIO_URL` to match your deployed studio URL:
-   ```
-   NEXT_PUBLIC_SANITY_STUDIO_URL=https://your-studio-hostname.sanity.studio
-   ```
-3. Redeploy your Vercel project
+- **Web App**: `https://your-web-project.vercel.app`
+- **Sanity Studio**: `https://your-studio-project.vercel.app`
+
+Both are now hosted on Vercel and will automatically deploy when you push changes to your GitHub repository!
 
 ---
 
@@ -227,9 +276,16 @@ After both deployments are complete, update your Vercel environment variables:
 ## Quick Reference
 
 ### Vercel Configuration
+
+**Web App Project:**
 - **Root Directory**: `apps/web`
 - **Build Command**: `cd ../.. && pnpm turbo build --filter=web`
 - **Output Directory**: `.next`
+
+**Studio Project:**
+- **Root Directory**: `apps/studio`
+- **Build Command**: `cd ../.. && pnpm turbo build --filter=studio`
+- **Output Directory**: `dist`
 
 ### Required Environment Variables
 
@@ -237,11 +293,17 @@ After both deployments are complete, update your Vercel environment variables:
 - `NEXT_PUBLIC_SANITY_PROJECT_ID`
 - `NEXT_PUBLIC_SANITY_DATASET`
 - `NEXT_PUBLIC_SANITY_API_VERSION`
-- `NEXT_PUBLIC_SANITY_STUDIO_URL`
+- `NEXT_PUBLIC_SANITY_STUDIO_URL` (set to your Vercel studio URL)
 - `SANITY_API_READ_TOKEN`
 - `SANITY_API_WRITE_TOKEN`
 
-**GitHub Secrets (Studio):**
+**Vercel (Studio):**
+- `SANITY_STUDIO_PROJECT_ID`
+- `SANITY_STUDIO_DATASET`
+- `SANITY_STUDIO_TITLE`
+- `SANITY_STUDIO_PRESENTATION_URL` (set to your Vercel web app URL)
+
+**GitHub Secrets (if using Sanity hosting for Studio):**
 - `SANITY_DEPLOY_TOKEN`
 - `SANITY_STUDIO_PROJECT_ID`
 - `SANITY_STUDIO_DATASET`
