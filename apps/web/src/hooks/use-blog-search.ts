@@ -2,7 +2,24 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 // import type { Blog } from "@/types";
-type Blog = any;
+type Blog = {
+  _id: string;
+  title: string;
+  slug: string;
+  description?: string;
+  publishedAt?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+    };
+    alt?: string;
+  };
+  authors?: Array<{
+    name: string;
+  }>;
+};
+
 import { useDebounce } from "./use-debounce";
 
 const SEARCH_DEBOUNCE_MS = 400;

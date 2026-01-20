@@ -47,7 +47,10 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
           onChange={(e) => setAgreed(e.target.checked)}
           className="h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-400 checked:border-gray-400 checked:bg-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 checked:[background-image:radial-gradient(circle,#fff_35%,transparent_35%)]"
         />
-        <label htmlFor="privacy-agreement" className="cursor-pointer text-[#9c9c9d] font-medium">
+        <label
+          htmlFor="privacy-agreement"
+          className="cursor-pointer text-[#9c9c9d] font-medium"
+        >
           I agree to our{" "}
           <Link
             href={newsletter.privacyLinkHref || "/privacy"}

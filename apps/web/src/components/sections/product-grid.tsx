@@ -1,11 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { cn } from "@workspace/ui/lib/utils";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
-
-import { cn } from "@workspace/ui/lib/utils";
+import { useCallback, useEffect, useState } from "react";
 
 import type { PagebuilderType } from "@/types";
 import { ProductCard } from "../elements/product-card";
@@ -27,17 +26,34 @@ export function ProductGridBlock({
   const gridCols = gridColsMap[cleanColumns] || gridColsMap["4"];
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
-    slidesToScroll: 1,
+    slidesToScroll: "auto",
     skipSnaps: false,
     dragFree: false,
+    containScroll: "trimSnaps",
   });
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
+    if (emblaApi) {
+      const currentIndex = emblaApi.selectedScrollSnap();
+      // Determine how many cards to scroll based on screen size
+      // This is a simplified approach - in a real app you might use a more sophisticated method
+      const scrollAmount =
+        window.innerWidth >= 768 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+      const newIndex = Math.max(0, currentIndex - scrollAmount);
+      emblaApi.scrollTo(newIndex);
+    }
   }, [emblaApi]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
+    if (emblaApi) {
+      const currentIndex = emblaApi.selectedScrollSnap();
+      const totalSlides = emblaApi.slideNodes().length;
+      // Determine how many cards to scroll based on screen size
+      const scrollAmount =
+        window.innerWidth >= 768 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+      const newIndex = Math.min(totalSlides - 1, currentIndex + scrollAmount);
+      emblaApi.scrollTo(newIndex);
+    }
   }, [emblaApi]);
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -72,8 +88,8 @@ export function ProductGridBlock({
         {title}
       </motion.h2>
 
-      {/* Grid Layout - sm and above */}
-      <div className={cn("hidden sm:grid gap-6 md:gap-8", gridCols)}>
+      {/* Grid Layout - lg and above */}
+      <div className={cn("hidden lg:grid gap-6 md:gap-8", gridCols)}>
         {products?.map((product, index) => (
           <ProductCard
             key={product._key}
@@ -87,8 +103,8 @@ export function ProductGridBlock({
         ))}
       </div>
 
-      {/* Slider - below sm (mobile) */}
-      <div className="relative sm:hidden">
+      {/* Slider - below lg */}
+      <div className="relative lg:hidden">
         {canScrollPrev && (
           <button
             type="button"
@@ -112,7 +128,10 @@ export function ProductGridBlock({
         <div className="overflow-hidden -mx-10 px-10" ref={emblaRef}>
           <div className="flex gap-6">
             {products?.map((product, index) => (
-              <div key={product._key} className="shrink-0 w-[calc(100vw-5rem)]">
+              <div
+                key={product._key}
+                className="shrink-0 w-full sm:w-1/2 md:w-1/3"
+              >
                 <ProductCard
                   title={product.title || ""}
                   subtitle={product.subtitle}

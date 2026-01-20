@@ -15,10 +15,18 @@ import type {
 import { Logo } from "./logo";
 
 // Type helpers using utility types
+type CategoryLink = {
+  _key: string;
+  text: string;
+  openInNewTab: boolean | null;
+  href: string | null;
+};
+
 type NavigationData = {
   navbarData: QueryNavbarDataResult;
   settingsData: QueryGlobalSeoSettingsResult;
   drawerData: QueryDrawerNavigationResult;
+  categoryLinks?: CategoryLink[];
 };
 
 type NavColumn = NonNullable<
@@ -42,6 +50,90 @@ const fetcher = async (url: string): Promise<NavigationData> => {
   }
   return response.json();
 };
+
+// Custom hook for scroll tracking
+function useScrollTracking() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      // Use different thresholds for scrolling up vs down to prevent flickering
+      if (!isScrolled && scrollY > 80) {
+        // Scrolling down - trigger at 80px
+        setIsScrolled(true);
+      } else if (isScrolled && scrollY < 30) {
+        // Scrolling up - only untrigger when below 30px
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isScrolled]);
+
+  return isScrolled;
+}
+
+// Custom hook for navbar state management
+function useNavbarState() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Focus search input when search opens
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  // Close mobile menu when search opens
+  useEffect(() => {
+    if (isSearchOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  }, [isSearchOpen]);
+
+  // Close drawer when pressing escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isDrawerOpen) {
+        setIsDrawerOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isDrawerOpen]);
+
+  const handleSearchToggle = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
+  const handleDrawerToggle = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+    if (isSearchOpen) {
+      setIsSearchOpen(false);
+    }
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  return {
+    isSearchOpen,
+    isMobileMenuOpen,
+    isDrawerOpen,
+    setIsMobileMenuOpen,
+    searchInputRef,
+    handleSearchToggle,
+    handleDrawerToggle,
+  };
+}
 
 function NavbarSkeleton() {
   return (
@@ -70,11 +162,13 @@ function NavigationDrawer({
   onClose,
   drawerData,
   settingsData,
+  categoryLinks,
 }: {
   isOpen: boolean;
   onClose: () => void;
   drawerData: QueryDrawerNavigationResult;
   settingsData: QueryGlobalSeoSettingsResult;
+  categoryLinks?: CategoryLink[];
 }) {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const { logo, siteTitle } = settingsData || {};
@@ -101,15 +195,14 @@ function NavigationDrawer({
   return (
     <>
       {/* Backdrop */}
-      <div
+      <button
+        type="button"
         className={cn(
           "fixed inset-0 z-50 bg-black/50 transition-opacity duration-300",
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         onClick={onClose}
         onKeyDown={(e) => e.key === "Escape" && onClose()}
-        role="button"
-        tabIndex={0}
         aria-label="Close drawer"
       />
 
@@ -166,6 +259,26 @@ function NavigationDrawer({
             </div>
           </div>
 
+          {/* Category Links */}
+          {categoryLinks && categoryLinks.length > 0 && (
+            <div className="px-6 py-2">
+              <nav className="flex flex-col">
+                {categoryLinks.map((link) => (
+                  <Link
+                    key={link._key}
+                    href={link.href || "#"}
+                    target={link.openInNewTab ? "_blank" : undefined}
+                    rel={link.openInNewTab ? "noopener noreferrer" : undefined}
+                    className="border-b border-foreground/10 py-5 text-2xl font-serif text-foreground transition-colors hover:opacity-70"
+                    onClick={onClose}
+                  >
+                    {link.text}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          )}
+
           {/* Navigation Links */}
           <nav className="flex-1 overflow-y-auto px-6">
             <div className="space-y-0">
@@ -209,7 +322,7 @@ function NavigationDrawer({
 
                     {/* Sub Links */}
                     {hasSubLinks && isExpanded && (
-                      <div className="pb-4 pl-4 space-y-3">
+                      <div className="pb-4 ps-4 space-y-3">
                         {link.subLinks?.map((subLink) => (
                           <Link
                             key={subLink._key}
@@ -287,7 +400,7 @@ function MobileMenu({
                     {column.title}
                   </button>
                   {isDropdownOpen && column.links && (
-                    <div className="grid gap-2 pl-4 border-l border-foreground/20">
+                    <div className="grid gap-2 ps-4 border-s border-foreground/20">
                       {column.links.map((link: ColumnLink) => (
                         <Link
                           key={link._key}
@@ -312,16 +425,22 @@ function MobileMenu({
   );
 }
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <extracted logic into custom hooks and components>
 export function Navbar({
   navbarData: initialNavbarData,
   settingsData: initialSettingsData,
   drawerData: initialDrawerData,
 }: NavigationData) {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const isScrolled = useScrollTracking();
+  const {
+    isSearchOpen,
+    isMobileMenuOpen,
+    isDrawerOpen,
+    setIsMobileMenuOpen,
+    searchInputRef,
+    handleSearchToggle,
+    handleDrawerToggle,
+  } = useNavbarState();
 
   const { data, error, isLoading } = useSWR<NavigationData>(
     "/api/navigation",
@@ -345,82 +464,17 @@ export function Navbar({
     navbarData: initialNavbarData,
     settingsData: initialSettingsData,
     drawerData: initialDrawerData,
+    categoryLinks: [],
   };
-  const { navbarData, settingsData, drawerData } = navigationData;
+  const { navbarData, settingsData, drawerData, categoryLinks } =
+    navigationData;
   const { columns } = navbarData || {};
   const { logo, siteTitle } = settingsData || {};
-
-  // Track scroll position with hysteresis to prevent flickering
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      // Use different thresholds for scrolling up vs down to prevent flickering
-      if (!isScrolled && scrollY > 80) {
-        // Scrolling down - trigger at 80px
-        setIsScrolled(true);
-      } else if (isScrolled && scrollY < 30) {
-        // Scrolling up - only untrigger when below 30px
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Check initial position
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isScrolled]);
-
-  // Focus search input when search opens
-  useEffect(() => {
-    if (isSearchOpen && searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  }, [isSearchOpen]);
-
-  // Close mobile menu when search opens
-  useEffect(() => {
-    if (isSearchOpen) {
-      setIsMobileMenuOpen(false);
-    }
-  }, [isSearchOpen]);
-
-  // Close drawer when pressing escape
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isDrawerOpen) {
-        setIsDrawerOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isDrawerOpen]);
 
   // Show skeleton only on initial mount when no fallback data is available
   if (isLoading && !data && !(initialNavbarData && initialSettingsData)) {
     return <NavbarSkeleton />;
   }
-
-  const handleSearchToggle = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
-
-  const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (isSearchOpen) {
-      setIsSearchOpen(false);
-    }
-  };
-
-  const handleDrawerToggle = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-    if (isSearchOpen) {
-      setIsSearchOpen(false);
-    }
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
-  };
 
   // Get navigation links for center display
   const navLinks = columns?.filter((col) => col.type === "link") || [];
@@ -538,7 +592,7 @@ export function Navbar({
                 <button
                   type="button"
                   onClick={handleSearchToggle}
-                  className="p-2 ml-4 text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
+                  className="p-2 ms-4 text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
                   aria-label="Close search"
                 >
                   <X className="size-5" />
@@ -595,6 +649,7 @@ export function Navbar({
         onClose={() => setIsDrawerOpen(false)}
         drawerData={drawerData}
         settingsData={settingsData}
+        categoryLinks={categoryLinks}
       />
 
       {/* Mobile Menu (legacy - kept for backward compatibility) */}

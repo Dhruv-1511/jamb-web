@@ -44,7 +44,7 @@ function StandardLayout({
             {title}
           </h2>
           <RichText
-            className="mb-6 max-md:prose-p:text-sm text-left font-medium leading-6"
+            className="mb-6 max-md:prose-p:text-sm text-start font-medium leading-6"
             richText={richText}
           />
           <SanityButtons buttons={buttons} className="flex !flex-col gap-3 " />

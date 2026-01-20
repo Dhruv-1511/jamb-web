@@ -32,9 +32,17 @@ type OgImageParams = {
 // Default site configuration
 const siteConfig: SiteConfig = {
   title: "Jamb",
-  description: "Jamb offers exquisite fireplaces, lighting, and furniture. Explore our collection of antique and reproduction pieces.",
+  description:
+    "Jamb offers exquisite fireplaces, lighting, and furniture. Explore our collection of antique and reproduction pieces.",
   twitterHandle: "@jamb",
-  keywords: ["jamb", "fireplaces", "lighting", "furniture", "antique", "reproduction"],
+  keywords: [
+    "jamb",
+    "fireplaces",
+    "lighting",
+    "furniture",
+    "antique",
+    "reproduction",
+  ],
 };
 
 function generateOgImageUrl(params: OgImageParams = {}): string {

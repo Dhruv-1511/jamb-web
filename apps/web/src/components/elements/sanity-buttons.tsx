@@ -25,7 +25,12 @@ function SanityButton({
   }
 
   return (
-    <Button variant={variant} {...props} asChild className={cn("text-base", className)}>
+    <Button
+      variant={variant}
+      {...props}
+      asChild
+      className={cn("text-base", className)}
+    >
       <Link
         aria-label={`Navigate to ${text}`}
         href={href || "#"}

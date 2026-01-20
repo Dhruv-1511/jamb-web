@@ -1,6 +1,5 @@
 import {
   Columns,
-  LayoutPanelLeft,
   Link,
   List,
   Mail,

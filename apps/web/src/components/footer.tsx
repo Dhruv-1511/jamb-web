@@ -19,7 +19,7 @@ type SocialLinksProps = {
   socialLinks: NonNullable<QueryFooterDataResult>["socialLinks"];
 };
 
-function SocialLinks({ socialLinks }: SocialLinksProps) {
+function _SocialLinks({ socialLinks }: SocialLinksProps) {
   if (!socialLinks) return null;
 
   const links = [
@@ -97,7 +97,7 @@ export function FooterSkeleton() {
 }
 
 export function Footer({ data }: FooterProps) {
-  const { contactInfo, email, newsletter, columns, socialLinks } = data;
+  const { contactInfo, newsletter, columns } = data;
 
   return (
     <footer className="bg-[#d4d4d4] px-6 py-12 lg:px-8">
@@ -117,8 +117,6 @@ export function Footer({ data }: FooterProps) {
                 </p>
               ))}
             </div>
-
-            
           </div>
 
           {/* Empty spacer column */}

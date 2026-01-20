@@ -15,10 +15,7 @@ import type {
 
 import { client, urlFor } from "@/lib/sanity/client";
 import { querySettingsData } from "@/lib/sanity/query";
-import type {
-  QuerySettingsDataResult,
-  QuerySlugPageDataResult,
-} from "@/lib/sanity/sanity.types";
+import type { QuerySettingsDataResult } from "@/lib/sanity/sanity.types";
 import { getBaseUrl, handleErrors } from "@/utils";
 
 type RichTextChild = {
@@ -26,6 +23,30 @@ type RichTextChild = {
   text?: string;
   marks?: string[];
   _key: string;
+};
+
+type ArticleData = {
+  slug: string;
+  title: string;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+    };
+    alt?: string;
+  };
+  authors?: Array<{
+    name: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+      };
+    };
+  }>;
+  publishedAt?: string;
+  updatedAt?: string;
 };
 
 type RichTextBlock = {
@@ -126,7 +147,7 @@ function buildSafeImageUrl(image?: { id?: string | null }) {
 
 // Article JSON-LD Component
 type ArticleJsonLdProps = {
-  article: any;
+  article: ArticleData;
   settings?: QuerySettingsDataResult;
 };
 export function ArticleJsonLd({
@@ -262,7 +283,7 @@ export function WebSiteJsonLd({ settings }: WebSiteJsonLdProps) {
 // Combined JSON-LD Component for pages with multiple structured data
 type CombinedJsonLdProps = {
   settings?: QuerySettingsDataResult;
-  article?: any;
+  article?: ArticleData;
   faqs?: FlexibleFaq[];
   includeWebsite?: boolean;
   includeOrganization?: boolean;
