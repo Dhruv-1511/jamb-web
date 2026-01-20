@@ -27,7 +27,7 @@
     "lucide-react": "catalog:",
     "motion": "^12.27.1",
     "next": "16.1.3",
-    "next-sanity": "^12.0.13",
+    "next-sanity": "^12.0.14",
     "next-themes": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
