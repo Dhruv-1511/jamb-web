@@ -8,7 +8,7 @@ import {
 import type { QueryHomePageDataResult } from "./sanity/sanity.types";
 
 type PageBuilderBlock =
-  NonNullable<QueryHomePageDataResult>["pageBuilder"][number];
+  NonNullable<NonNullable<QueryHomePageDataResult>["pageBuilder"]>[number];
 
 type CategoryLinksBlock = Extract<PageBuilderBlock, { _type: "categoryLinks" }>;
 

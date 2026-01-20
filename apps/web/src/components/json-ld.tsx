@@ -47,6 +47,8 @@ type ArticleData = {
   }>;
   publishedAt?: string;
   updatedAt?: string;
+  _createdAt?: string;
+  _updatedAt?: string;
 };
 
 type RichTextBlock = {
@@ -133,16 +135,25 @@ const IMAGE_SIZE_WIDTH = 1920;
 const IMAGE_SIZE_HEIGHT = 1080;
 const IMAGE_QUALITY = 80;
 
-function buildSafeImageUrl(image?: { id?: string | null }) {
-  if (!image?.id) {
+function buildSafeImageUrl(image?: any) {
+  if (!image) {
     return;
   }
-  return urlFor({ ...image, _id: image.id })
-    .size(IMAGE_SIZE_WIDTH, IMAGE_SIZE_HEIGHT)
-    .dpr(2)
-    .auto("format")
-    .quality(IMAGE_QUALITY)
-    .url();
+  const source = image.asset || image;
+  if (!source) {
+    return;
+  }
+  
+  try {
+    return urlFor(source)
+      .size(IMAGE_SIZE_WIDTH, IMAGE_SIZE_HEIGHT)
+      .dpr(2)
+      .auto("format")
+      .quality(IMAGE_QUALITY)
+      .url();
+  } catch (err) {
+    return;
+  }
 }
 
 // Article JSON-LD Component
@@ -170,19 +181,20 @@ export function ArticleJsonLd({
     description: article.description || undefined,
     image: imageUrl ? [imageUrl] : undefined,
     author: article.authors
-      ? [
-          {
-            "@type": "Person",
-            name: article.authors.name,
-            url: `${baseUrl}`,
-            image: article.authors.image
-              ? ({
-                  "@type": "ImageObject",
-                  url: buildSafeImageUrl(article.authors.image),
-                } as ImageObject)
-              : undefined,
-          } as Person,
-        ]
+      ? article.authors.map(
+          (author) =>
+            ({
+              "@type": "Person",
+              name: author.name,
+              url: `${baseUrl}`,
+              image: author.image
+                ? ({
+                    "@type": "ImageObject",
+                    url: buildSafeImageUrl(author.image),
+                  } as ImageObject)
+                : undefined,
+            }) as Person
+        )
       : [],
     publisher: {
       "@type": "Organization",
