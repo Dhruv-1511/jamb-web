@@ -2,6 +2,18 @@
  * Prints a styled CLI message with instructions for importing Sanity seed data.
  */
 function printSeedDataImportInstructions() {
+  // Skip during deployment if Sanity environment variables are not set
+  const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
+  const dataset = process.env.SANITY_STUDIO_DATASET;
+
+  if (!projectId || !dataset) {
+    // biome-ignore lint/suspicious/noConsole: intentional logging
+    console.log(
+      "Skipping seed data instructions - Sanity environment variables not configured"
+    );
+    return;
+  }
+
   // ANSI color codes for styling
   const COLOR_BLUE = "\x1b[34m";
   const COLOR_CYAN = "\x1b[36m";

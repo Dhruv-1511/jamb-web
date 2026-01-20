@@ -7,13 +7,16 @@ const logger = new Logger("SanityCLI");
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || "gqhcqy1g";
 const dataset = process.env.SANITY_STUDIO_DATASET || "production";
 
-if (!process.env.SANITY_STUDIO_PROJECT_ID) {
+// Only log warnings if we're not in CI and not in production
+const shouldLog = !process.env.CI && process.env.NODE_ENV !== "production";
+
+if (!process.env.SANITY_STUDIO_PROJECT_ID && shouldLog) {
   logger.warn(
     "SANITY_STUDIO_PROJECT_ID is missing. Using fallback for configuration."
   );
 }
 
-if (!process.env.SANITY_STUDIO_DATASET) {
+if (!process.env.SANITY_STUDIO_DATASET && shouldLog) {
   logger.warn(
     "SANITY_STUDIO_DATASET is missing. Using fallback for configuration."
   );
@@ -46,7 +49,7 @@ function getStudioHost(): string | undefined {
 
 const studioHost = getStudioHost();
 
-if (studioHost) {
+if (studioHost && shouldLog) {
   logger.info(`Sanity Studio Host: https://${studioHost}.sanity.studio`);
 }
 
