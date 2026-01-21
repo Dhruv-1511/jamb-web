@@ -38,7 +38,7 @@ function _SocialLinks({ socialLinks }: SocialLinksProps) {
           key={label}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#9c9c9d] transition-colors hover:text-black"
+          className="text-jamb-gray transition-colors hover:text-black"
           aria-label={label}
           href={url ?? "#"}
         >
@@ -77,7 +77,7 @@ export function FooterSkeleton() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
           {[1, 2, 3, 4, 5].map((col) => (
             <div key={col}>
-              <div className="border-gray-400 border-t pt-[14px]">
+              <div className="border-jamb-gray border-t pt-[14px]">
                 <div className="mb-4 h-5 w-32 animate-pulse rounded bg-gray-300" />
                 <div className="space-y-2">
                   {[1, 2, 3, 4].map((item) => (
@@ -105,7 +105,7 @@ export function Footer({ data }: FooterProps) {
         {/* Top section: Contact, Email, Newsletter */}
         <div className="mb-7 grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
           {/* Contact & Email - spans 2 columns */}
-          <div className="col-span-2 grid grid-cols-1 gap-6 font-medium text-[#9c9c9d] md:grid-cols-2 lg:gap-10">
+          <div className="col-span-2 grid grid-cols-1 gap-6 font-medium text-jamb-gray md:grid-cols-2 lg:gap-10">
             {/* Contact Info */}
             <div className="leading-6">
               {contactInfo?.phone && (
@@ -137,7 +137,7 @@ export function Footer({ data }: FooterProps) {
                 {column?.sections?.map((section, sectionIndex) => (
                   <div
                     key={`section-${section?._key}-${sectionIndex}`}
-                    className="mb-10 border-gray-400 border-t pt-[14px] last:mb-0"
+                    className="border-jamb-gray border-t py-4 last:mb-0"
                   >
                     {/* Section Title */}
                     {section?.title && (
@@ -158,7 +158,7 @@ export function Footer({ data }: FooterProps) {
                                   : undefined
                               }
                               target={link.openInNewTab ? "_blank" : undefined}
-                              className="text-base font-medium leading-8 text-[#9c9c9d] transition-colors hover:text-black"
+                              className="text-base font-medium leading-8 text-jamb-gray transition-colors hover:text-black"
                             >
                               {link.name}
                             </Link>

@@ -100,7 +100,7 @@ function useOptimisticPageBuilder(
 /**
  * Custom hook for block component rendering logic
  */
-function useBlockRenderer(id: string, type: string) {
+function useBlockRenderer(id: string, type: string, blocks: PageBuilderBlock[]) {
   const createBlockDataAttribute = useCallback(
     (blockKey: string) =>
       createSanityDataAttribute({
@@ -112,7 +112,7 @@ function useBlockRenderer(id: string, type: string) {
   );
 
   const renderBlock = useCallback(
-    (block: PageBuilderBlock, _index: number) => {
+    (block: PageBuilderBlock, index: number) => {
       const Component =
         BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
 
@@ -126,17 +126,31 @@ function useBlockRenderer(id: string, type: string) {
         );
       }
 
+      // Logic for consecutive SplitFeature padding
+      let extraClasses = "";
+      if (block._type === "splitFeature") {
+        const isPrevSplitFeature = blocks[index - 1]?._type === "splitFeature";
+        const isNextSplitFeature = blocks[index + 1]?._type === "splitFeature";
+
+        if (isPrevSplitFeature) {
+          extraClasses += " !pt-10";
+        }
+        if (isNextSplitFeature) {
+          extraClasses += " !pb-10";
+        }
+      }
+
       return (
         <div
           data-sanity={createBlockDataAttribute(block._key)}
           key={`${block._type}-${block._key}`}
         >
           {/** biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering> */}
-          <Component {...(block as any)} />
+          <Component {...(block as any)} className={extraClasses.trim()} />
         </div>
       );
     },
-    [createBlockDataAttribute]
+    [createBlockDataAttribute, blocks]
   );
 
   return { renderBlock };
@@ -151,7 +165,7 @@ export function PageBuilder({
   type,
 }: PageBuilderProps) {
   const blocks = useOptimisticPageBuilder(initialBlocks, id);
-  const { renderBlock } = useBlockRenderer(id, type);
+  const { renderBlock } = useBlockRenderer(id, type, blocks);
 
   const containerDataAttribute = useMemo(
     () => createSanityDataAttribute({ id, type, path: "pageBuilder" }),

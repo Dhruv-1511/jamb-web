@@ -8,7 +8,9 @@ import { RichText } from "../elements/rich-text";
 import { SanityButtons } from "../elements/sanity-buttons";
 import { SanityImage } from "../elements/sanity-image";
 
-type SplitFeatureBlockProps = PagebuilderType<"splitFeature">;
+type SplitFeatureBlockProps = PagebuilderType<"splitFeature"> & {
+  className?: string;
+};
 
 function StandardLayout({
   eyebrow,
@@ -17,11 +19,12 @@ function StandardLayout({
   buttons,
   image,
   imagePosition,
+  className,
 }: SplitFeatureBlockProps) {
   const isImageLeft = imagePosition === "left";
 
   return (
-    <section className="container py-pagebuilder">
+    <section className={cn("container py-pagebuilder", className)}>
       <div
         className={cn(
           "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
@@ -57,7 +60,7 @@ function StandardLayout({
           viewport={{ once: true }}
           whileInView={{ opacity: 1, x: 0 }}
         >
-          <div className="w-full relative md:mx-8 	">
+          <div className="w-full relative md:mx-8 lg:mx-12 xl:mx-20">
             {image && (
               <SanityImage
                 className="max-h-full w-full !rounded-none object-cover"
@@ -79,9 +82,10 @@ function CenteredLayout({
   richText,
   buttons,
   image,
+  className,
 }: SplitFeatureBlockProps) {
   return (
-    <section className="py-16 md:py-24">
+    <section className={cn("py-16 md:py-24", className)}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           className="mx-auto max-w-3xl space-y-6 text-center"
@@ -131,9 +135,10 @@ function OverlayLayout({
   overlayTitle,
   image,
   buttons,
+  className,
 }: SplitFeatureBlockProps) {
   return (
-    <section className="py-16 md:py-24">
+    <section className={cn("py-16 md:py-24", className)}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           className="relative aspect-[21/9] min-h-[400px] overflow-hidden bg-jamb-charcoal md:min-h-[500px]"
@@ -198,3 +203,4 @@ export function SplitFeatureBlock(props: SplitFeatureBlockProps) {
       return <StandardLayout {...props} />;
   }
 }
+

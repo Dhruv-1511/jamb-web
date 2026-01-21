@@ -90,6 +90,7 @@
   --color-jamb-cream: var(--jamb-cream);
   --color-jamb-beige: var(--jamb-beige);
   --color-jamb-charcoal: var(--jamb-charcoal);
+  --color-jamb-gray: #9c9c9d;
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -156,8 +157,8 @@ img {
 
 /* Pagebuilder utility classes */
 .py-pagebuilder {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
 }
 
 /* Smooth scroll with offset for fixed navbar */

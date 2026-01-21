@@ -29,7 +29,10 @@ function SanityButton({
       variant={variant}
       {...props}
       asChild
-      className={cn("text-base", className)}
+      className={cn(
+        "relative group overflow-hidden text-base transition-colors duration-300",
+        className
+      )}
     >
       <Link
         aria-label={`Navigate to ${text}`}
@@ -37,7 +40,12 @@ function SanityButton({
         target={openInNewTab ? "_blank" : "_self"}
         title={`Click to visit ${text}`}
       >
-        {text}
+        {/* Door animation layers */}
+        <span className="absolute inset-y-0 left-0 w-0 bg-jamb-gray transition-all duration-500 group-hover:w-1/2" />
+        <span className="absolute inset-y-0 right-0 w-0 bg-jamb-gray transition-all duration-500 group-hover:w-1/2" />
+        <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
+          {text}
+        </span>
       </Link>
     </Button>
   );

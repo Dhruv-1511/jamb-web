@@ -22,18 +22,18 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
       }}
     >
       <div>
-        <h3 className="mb-2 text-base font-medium leading-6 text-[#9c9c9d]">
+        <h3 className="mb-2 text-base font-medium leading-6 text-jamb-gray">
           {newsletter.title || "Newsletter"}
         </h3>
         <div className="flex gap-0.5">
           <input
             type="email"
             placeholder={newsletter.placeholder || "Enter your email"}
-            className="h-11 flex-1 border-0 bg-white px-3 py-1 text-base font-light text-[#9c9c9d] placeholder:text-[#9c9c9d] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm"
+            className="h-11 flex-1 border-0 bg-white px-3 py-1 text-base font-light text-jamb-gray placeholder:text-jamb-gray focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm"
           />
           <button
             type="submit"
-            className="h-11 shrink-0 border-0 border-[#757575] bg-white px-4 py-2 text-base font-medium text-[#9c9c9d] transition-colors duration-300 hover:bg-neutral-500 hover:text-white"
+            className="h-11 shrink-0 border-0 border-[#757575] bg-white px-4 py-2 text-base font-medium text-jamb-gray transition-colors duration-300 hover:bg-neutral-500 hover:text-white"
           >
             {newsletter.buttonText || "Subscribe"}
           </button>
@@ -41,15 +41,15 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
       </div>
       <div className="flex items-center gap-2">
         <input
-          type="radio"
+          type="checkbox"
           id="privacy-agreement"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
-          className="h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-full border border-gray-400 checked:border-gray-400 checked:bg-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 checked:[background-image:radial-gradient(circle,#fff_35%,transparent_35%)]"
+          className="h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-full border border-jamb-gray/50 checked:border-jamb-gray checked:bg-jamb-gray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 checked:[background-image:radial-gradient(circle,#fff_35%,transparent_35%)]"
         />
         <label
           htmlFor="privacy-agreement"
-          className="cursor-pointer text-[#9c9c9d] font-medium"
+          className="cursor-pointer text-jamb-gray font-medium"
         >
           I agree to our{" "}
           <Link

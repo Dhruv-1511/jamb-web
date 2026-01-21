@@ -249,7 +249,7 @@ function NavigationDrawer({
           </div>
 
           {/* Search */}
-          <div className="px-6 pb-6">
+          <div className="px-6 py-4">
             <div className="flex items-center gap-3 border-b border-foreground/30 pb-2">
               <Search className="size-5 text-foreground/50" />
               <input
@@ -270,7 +270,7 @@ function NavigationDrawer({
                     href={link.href || "#"}
                     target={link.openInNewTab ? "_blank" : undefined}
                     rel={link.openInNewTab ? "noopener noreferrer" : undefined}
-                    className="border-b border-foreground/10 py-5 text-2xl font-serif text-foreground transition-colors hover:opacity-70"
+                    className="border-b border-foreground/10 py-5 text-xl font-serif text-jamb-gray transition-colors hover:text-black"
                     onClick={onClose}
                   >
                     {link.text}
@@ -347,6 +347,13 @@ function NavigationDrawer({
               })}
             </div>
           </nav>
+
+          {/* Footer */}
+          <div className="p-6">
+            <p className="text-sm font-medium">
+              © 2026 Jamb. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </>
@@ -576,7 +583,7 @@ export function Navbar({
                   <button
                     type="button"
                     onClick={handleSearchToggle}
-                    className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
+                    className="text-jamb-gray transition-colors hover:text-black cursor-pointer"
                     aria-label="Open search"
                   >
                     <Search
@@ -594,7 +601,7 @@ export function Navbar({
                 <button
                   type="button"
                   onClick={handleSearchToggle}
-                  className="p-2 ms-4 text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
+                  className="p-2 ms-4 text-jamb-gray transition-colors hover:text-black cursor-pointer"
                   aria-label="Close search"
                 >
                   <X className="size-5" />
@@ -604,8 +611,8 @@ export function Navbar({
               {/* Mail icon */}
               {!isSearchOpen && (
                 <Link
-                  href="/contact"
-                  className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
+                  href="mailto:dhruvsheladiya07@gmail.com"
+                  className="text-jamb-gray transition-colors hover:text-black cursor-pointer"
                   aria-label="Contact"
                 >
                   <Mail
@@ -622,7 +629,7 @@ export function Navbar({
                 <button
                   type="button"
                   onClick={handleDrawerToggle}
-                  className="text-[#9C9C9D] transition-colors hover:text-black cursor-pointer"
+                  className="text-jamb-gray transition-colors hover:text-black cursor-pointer"
                   aria-label="Open menu"
                 >
                   <Menu

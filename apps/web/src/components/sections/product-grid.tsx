@@ -12,8 +12,8 @@ import { ProductCard } from "../elements/product-card";
 type ProductGridBlockProps = PagebuilderType<"productGrid">;
 
 const gridColsMap: Record<string, string> = {
-  "4": "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
-  "5": "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
+  "4": "grid-cols-4",
+  "5": "grid-cols-5",
 };
 
 export function ProductGridBlock({
