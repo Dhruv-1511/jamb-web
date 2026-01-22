@@ -97,7 +97,7 @@ export function FooterSkeleton() {
 }
 
 export function Footer({ data }: FooterProps) {
-  const { contactInfo, newsletter, columns } = data;
+  const { contactInfo, newsletter, columns, email } = data;
 
   return (
     <footer className="bg-[#d4d4d4] px-6 py-12 lg:px-8">
@@ -119,6 +119,17 @@ export function Footer({ data }: FooterProps) {
             </div>
           </div>
 
+            {/* Email & Social Links */}
+            <div className="text-base leading-6">
+              {email && (
+                <a
+                  href={`mailto:${email}`}
+                  className="mb-3 block text-jamb-gray transition-colors hover:text-black"
+                >
+                  {email}
+                </a>
+              )}
+            </div>
           {/* Empty spacer column */}
           <div aria-hidden="true" className="hidden md:block" />
 

@@ -84,7 +84,7 @@
 
 @theme inline {
   --font-serif: var(--font-serif);
-  --font-galaxie: var(--font-serif), "Copernicus", serif;
+  --font-galaxie: var(--font-serif), serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-jamb-cream: var(--jamb-cream);

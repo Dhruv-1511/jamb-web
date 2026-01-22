@@ -1,7 +1,6 @@
 import "@workspace/ui/globals.css";
 
-import { Geist, Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
+import { Geist, Geist_Mono, Libre_Baskerville } from "next/font/google";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { Suspense } from "react";
@@ -25,34 +24,10 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 });
 
-const fontSerif = localFont({
-  src: [
-    {
-      path: "../../public/fonts/Copernicus-Book.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Copernicus-BookItalic.ttf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/Copernicus-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Copernicus-Semibold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Copernicus-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
+const fontSerif = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
 });
