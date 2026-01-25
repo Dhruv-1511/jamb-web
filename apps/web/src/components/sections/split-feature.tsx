@@ -43,11 +43,11 @@ function StandardLayout({
               {eyebrow}
             </p>
           )}
-          <h2 className="text-3xl text-balance font-medium md:text-4xl mb-8 text-center">
+          <h2 className="text-4xl text-balance font-medium md:text-4xl mb-8 text-center">
             {title}
           </h2>
           <RichText
-            className="mb-6 max-md:prose-p:text-sm text-start font-medium leading-6"
+            className="mb-6 max-md:prose-p:text-sm text-start leading-6"
             richText={richText}
           />
           <SanityButtons buttons={buttons} className="flex !flex-col gap-3 " />
@@ -60,12 +60,13 @@ function StandardLayout({
           viewport={{ once: true }}
           whileInView={{ opacity: 1, x: 0 }}
         >
-          <div className="w-full relative md:mx-8 lg:mx-12 xl:mx-20">
+          <div className="relative flex items-center justify-center md:mx-8 lg:mx-12 xl:mx-20">
             {image && (
               <SanityImage
-                className="max-h-full w-full !rounded-none object-cover"
+                className="!rounded-none !h-auto !w-auto !max-h-none !max-w-full object-contain"
                 height={1000}
                 image={image}
+                style={{ width: "auto", height: "auto", maxWidth: "100%" }}
                 width={800}
               />
             )}

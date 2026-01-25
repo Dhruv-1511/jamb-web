@@ -1,6 +1,7 @@
 import "@workspace/ui/globals.css";
 
-import { Geist, Geist_Mono, Libre_Baskerville } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { Suspense } from "react";
@@ -24,12 +25,23 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 });
 
-const fontSerif = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+// Libre Baskerville - using local font files
+const fontSerif = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Libre_Baskerville/Libre_Baskerville/LibreBaskerville-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Libre_Baskerville/Libre_Baskerville/LibreBaskerville-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+  ],
   variable: "--font-serif",
   display: "swap",
+  fallback: ["serif"],
 });
 
 export default async function RootLayout({

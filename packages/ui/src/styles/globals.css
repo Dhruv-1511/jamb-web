@@ -84,7 +84,6 @@
 
 @theme inline {
   --font-serif: var(--font-serif);
-  --font-galaxie: var(--font-serif), serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-jamb-cream: var(--jamb-cream);
@@ -132,7 +131,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-galaxie;
+    @apply bg-background text-foreground font-serif;
   }
 }
 

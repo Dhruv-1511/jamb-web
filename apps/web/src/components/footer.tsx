@@ -117,9 +117,7 @@ export function Footer({ data }: FooterProps) {
                 </p>
               ))}
             </div>
-          </div>
-
-            {/* Email & Social Links */}
+               {/* Email & Social Links */}
             <div className="text-base leading-6">
               {email && (
                 <a
@@ -130,6 +128,9 @@ export function Footer({ data }: FooterProps) {
                 </a>
               )}
             </div>
+
+           
+          </div>
           {/* Empty spacer column */}
           <div aria-hidden="true" className="hidden md:block" />
 

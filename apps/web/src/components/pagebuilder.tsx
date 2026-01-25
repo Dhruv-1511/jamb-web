@@ -131,8 +131,12 @@ function useBlockRenderer(id: string, type: string, blocks: PageBuilderBlock[]) 
       if (block._type === "splitFeature") {
         const isPrevSplitFeature = blocks[index - 1]?._type === "splitFeature";
         const isNextSplitFeature = blocks[index + 1]?._type === "splitFeature";
+        const isPrevCategoryLinks = blocks[index - 1]?._type === "categoryLinks";
 
-        if (isPrevSplitFeature) {
+        if (isPrevCategoryLinks) {
+          // Reduce padding-top by 88px (from 128px to 40px)
+          extraClasses += " !pt-10";
+        } else if (isPrevSplitFeature) {
           extraClasses += " !pt-10";
         }
         if (isNextSplitFeature) {
