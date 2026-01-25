@@ -241,17 +241,17 @@ function NavigationDrawer({
             <button
               type="button"
               onClick={onClose}
-              className="text-foreground/70 transition-colors hover:text-foreground"
+              className="text-jamb-gray transition-colors hover:text-black"
               aria-label="Close menu"
             >
-              <X className="size-6" />
+              <X className="size-6" strokeWidth={0.8} />
             </button>
           </div>
 
           {/* Search */}
           <div className="px-6 py-4">
             <div className="flex items-center gap-3 border-b border-foreground/30 pb-2">
-              <Search className="size-5 text-foreground/50" />
+              <Search className="size-5 text-jamb-gray" strokeWidth={0.8} />
               <input
                 type="text"
                 placeholder={searchPlaceholder || "Search our collection..."}
@@ -570,7 +570,7 @@ export function Navbar({
                 {isSearchOpen ? (
                   // Expanded search input
                   <div className="flex items-center gap-3 flex-1">
-                    <Search className="size-5 text-foreground/60 shrink-0" />
+                    <Search className="size-5 text-jamb-gray shrink-0" strokeWidth={0.8} />
                     <input
                       ref={searchInputRef}
                       type="text"
@@ -591,6 +591,7 @@ export function Navbar({
                         "transition-all duration-300",
                         isScrolled ? "size-5" : "size-7"
                       )}
+                      strokeWidth={0.8}
                     />
                   </button>
                 )}
@@ -604,7 +605,7 @@ export function Navbar({
                   className="p-2 ms-4 text-jamb-gray transition-colors hover:text-black cursor-pointer"
                   aria-label="Close search"
                 >
-                  <X className="size-5" />
+                  <X className="size-5" strokeWidth={0.8}/>
                 </button>
               )}
 
@@ -620,6 +621,7 @@ export function Navbar({
                       "transition-all duration-300",
                       isScrolled ? "size-5" : "size-7"
                     )}
+                    strokeWidth={0.8}
                   />
                 </Link>
               )}
@@ -637,6 +639,7 @@ export function Navbar({
                       "transition-all duration-300",
                       isScrolled ? "size-5" : "size-7"
                     )}
+                    strokeWidth={0.8}
                   />
                 </button>
               )}

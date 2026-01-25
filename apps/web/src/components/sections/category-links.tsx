@@ -11,7 +11,7 @@ export function CategoryLinksBlock({ links }: CategoryLinksBlockProps) {
 
   return (
     <section className="w-full border-t border-foreground/20 bg-background">
-      <div className="container py-8">
+      <div className="max-sm:hidden container py-8">
         <nav className="flex items-center justify-center gap-2 flex-wrap font-medium">
           {links.map((link, index) => (
             <div key={link._key} className="flex items-center">
