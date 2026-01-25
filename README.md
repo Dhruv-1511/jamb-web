@@ -1,44 +1,91 @@
 # Jamb Monorepo
 
-A high-performance, full-stack monorepo template built with **Next.js 16 (App Router)**, **Sanity CMS**, **Shadcn UI**, and **Turborepo**.
+<div align="center">
+  <img src="banner.png" alt="Jamb Monorepo Banner" width="800" />
+  
+  <p align="center">
+    <strong>An elegant, high-performance monorepo architecture for sophisticated digital experiences.</strong>
+  </p>
 
-![Project Banner](https://raw.githubusercontent.com/robotostudio/turbo-start-sanity/main/turbo-start-sanity-og.png)
+  <p align="center">
+    <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+    <img src="https://img.shields.io/badge/Sanity-v4-F03E2F?style=for-the-badge&logo=sanity" alt="Sanity" />
+    <img src="https://img.shields.io/badge/Turborepo-2.7-EF4444?style=for-the-badge&logo=turborepo" alt="Turborepo" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
+    <img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript" />
+  </p>
+</div>
+
+---
+
+## ✨ Overview
+
+Jamb Monorepo is a sophisticated, production-grade starter kit designed for world-class content experiences. It seamlessly integrates the power of **Next.js 16** with the flexibility of **Sanity Studio v4**, providing an unrivaled platform for both developers and curators.
 
 ## 🚀 Key Features
 
 ### 📦 Modern Monorepo Architecture
 
-- **Turborepo**: High-performance build system with remote caching.
-- **Apps**: High-speed Next.js frontend (`/web`) & Headless Sanity Studio (`/studio`).
-- **Packages**: Shared UI components, configurations (Typescript, ESLint), and utilities.
-- **Biome**: Unified tool for ultra-fast formatting and linting.
+- **Turborepo**: High-performance build system with remote caching and parallel execution.
+- **Shared Packages**: Centralized UI components, configurations, and environment logic.
+- **Biome/Ultracite**: Ultra-fast linting and formatting for a clean codebase.
 
 ### 🌐 Frontend (Next.js 16)
 
-- **App Router**: Leveraging React Server Components (RSC) and Server Actions.
-- **Micro-Animations**: Smooth UI transitions using Framer Motion.
-- **Smart Search**: Integrated fuzzy search with `fuse.js`.
-- **Theming**: Dark and light mode support with `next-themes`.
-- **Optimized Assets**: Next-generation image handling with Sanity Image URL builder.
+- **App Router & RSC**: Fully utilizes React Server Components for optimal performance.
+- **Framer Motion**: Smooth, high-end micro-animations and transitions.
+- **Fuzzy Search**: Integrated client-side search using `fuse.js`.
+- **Next-Themes**: Native dark/light mode support with system preference detection.
 
 ### ✍️ Content Management (Sanity Studio)
 
-- **Visual Editing**: Real-time live preview of content changes.
-- **Custom Schemas**: Pre-configured for Blog, FAQ, Careers, and generic Pages.
-- **Media Management**: Robust asset pipeline for images and files.
-- **Type Safety**: Fully typed schemas using Sanity Typegen.
+- **Headless CMS**: Decoupled content management with a powerful GROQ query engine.
+- **Type Safety**: Fully typed schema definitions and auto-generated TypeScript types.
+- **Modular Blocks**: PageBuilder pattern for creating dynamic, component-based layouts.
+- **Visual Editing**: Real-time live preview and on-page editing with Sanity Visual Editing.
 
 ---
 
-## 🛠️ Tech Stack
+## 🧱 Built-in Components
 
-- **Framework**: [Next.js](https://nextjs.org/)
-- **CMS**: [Sanity.io](https://www.sanity.io/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [Shadcn UI](https://ui.shadcn.com/)
-- **Build System**: [Turborepo](https://turbo.build/)
-- **PackageManager**: [pnpm](https://pnpm.io/)
-- **Linter/Formatter**: [Biome](https://biomejs.dev/)
+The PageBuilder supports a variety of modular blocks out of the box:
+
+- ⚡ **Hero**: Dynamic hero sections with call-to-action buttons.
+- 🍱 **Product Grid**: Responsive grids for showcasing products or items.
+- 🌓 **Split Feature**: High-impact feature alternating layouts.
+- 🔗 **Category Links**: Visual navigation with custom imagery.
+
+---
+
+## 🏗️ Architecture Highlights
+
+### Type-Safe Environment Variables
+
+Managed via `@workspace/env`, ensuring all Project IDs and API keys are validated with Zod before the application starts.
+
+### Optimized Data Fetching
+
+Uses fragment composition in GROQ queries to ensure over-fetching is minimized and components only receive the data they need.
+
+### Performance-First UI
+
+Built on top of **Radix UI** primitives and **Shadcn UI**, optimized for accessibility and speed.
+
+---
+
+## Project Structure
+
+```text
+├── apps/
+│   ├── web/          # Next.js 16 Frontend (App Router)
+│   └── studio/       # Sanity Studio v4 (CMS)
+├── packages/
+│   ├── ui/           # Shared React components (Shadcn UI)
+│   ├── typescript/   # Shared TypeScript configurations
+│   ├── env/          # Type-safe environment variables
+│   └── logger/       # Unified logging utility
+└── turbo.json        # Turborepo orchestration
+```
 
 ---
 
@@ -46,19 +93,18 @@ A high-performance, full-stack monorepo template built with **Next.js 16 (App Ro
 
 ### 1. Prerequisites
 
-Ensure you have **Node.js v22+** and **pnpm** installed.
+- **Node.js**: v22 or higher
+- **pnpm**: v10 or higher
 
 ### 2. Installation
-
-Clone the repository and install dependencies:
 
 ```bash
 pnpm install
 ```
 
-### 3. Environment Variables
+### 3. Environment Setup
 
-You need to set up environment variables in both `apps/web/.env` and `apps/studio/.env`.
+Configure your environment variables in the following files:
 
 **Web (`apps/web/.env`):**
 
@@ -78,61 +124,44 @@ SANITY_STUDIO_DATASET="production"
 
 ### 4. Development
 
-Start both the Frontend and the Studio simultaneously:
+Launch both the web application and the studio simultaneously:
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
-- **Web App**: `http://localhost:3000`
-- **Sanity Studio**: `http://localhost:3333`
+- **Web App**: [http://localhost:3000](http://localhost:3000)
+- **Sanity Studio**: [http://localhost:3333](http://localhost:3333)
 
 ---
 
 ## 📜 Available Scripts
 
-| Command                | Action                                       |
-| :--------------------- | :------------------------------------------- |
-| `pnpm run dev`         | Start all apps in development mode           |
-| `pnpm run build`       | Build all apps for production                |
-| `pnpm run format`      | Auto-format code using Biome/Ultracite       |
-| `pnpm run lint`        | Check for linting errors                     |
-| `pnpm run check-types` | Run TypeScript type checking across the repo |
-
----
-
-## 📂 Project Structure
-
-```text
-├── apps/
-│   ├── web/          # Next.js Frontend
-│   └── studio/       # Sanity CMS Studio
-├── packages/
-│   ├── ui/           # Shared Shadcn UI components
-│   ├── typescript/   # Shared TS configurations
-│   └── env/          # Shared environment variable logic
-└── turbo.json        # Turborepo configuration
-```
+| Command            | Action                                                |
+| :----------------- | :---------------------------------------------------- |
+| `pnpm dev`         | Start development servers for all apps                |
+| `pnpm build`       | Build all packages and apps for production            |
+| `pnpm format`      | Fix linting and formatting issues across the monorepo |
+| `pnpm lint`        | Check for linting errors                              |
+| `pnpm check-types` | Run TypeScript type checking globally                 |
 
 ---
 
 ## 🚢 Deployment
 
-### Deploying the Studio
-
-Navigate to the studio directory and use the Sanity CLI:
+### Sanity Studio
 
 ```bash
 cd apps/studio
 npx sanity deploy
 ```
 
-### Deploying the Web App
+### Next.js Frontend
 
-The Next.js app is optimized for **Vercel**. Simply connect your GitHub repository and set the Root Directory to `apps/web`.
+Recommended for **Vercel**. Connect your repository and set the root directory to `apps/web`. The monorepo structure will be automatically detected.
 
 ---
 
 ## ⚖️ License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.

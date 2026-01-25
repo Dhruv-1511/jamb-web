@@ -31,6 +31,7 @@ sanity schema extract --enforce-required-fields && sanity typegen generate
 ## Architecture Overview
 
 ### Monorepo Structure
+
 - **apps/web**: Next.js 16 frontend with App Router, React Server Components
 - **apps/studio**: Sanity Studio v4 for content management
 - **packages/ui**: Shared Shadcn/Radix UI components with Tailwind CSS
@@ -66,6 +67,7 @@ sanity schema extract --enforce-required-fields && sanity typegen generate
 **GROQ Queries**: Use fragment composition. Do not expand images unless necessary. Use `select()` for conditional projections.
 
 **Frontend Components**:
+
 - Use `SanityImage` component for Sanity images
 - Use `SanityButtons` resolver for button arrays
 - Prefer CSS Grid over Flexbox unless working with two siblings
