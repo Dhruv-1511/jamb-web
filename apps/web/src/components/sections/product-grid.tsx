@@ -77,7 +77,7 @@ export function ProductGridBlock({
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="container p-10 bg-[#E3E3E3]">
+    <section className="container p-10 bg-[#E3E3E3] overflow-hidden">
       <motion.h2
         className="mx-auto text-center text-xl font-medium leading-5 mb-8"
         initial={{ opacity: 0, y: 20 }}

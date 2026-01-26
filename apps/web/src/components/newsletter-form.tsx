@@ -25,11 +25,11 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
         <h3 className="mb-2 text-base font-medium leading-6 text-jamb-gray">
           {newsletter.title || "Newsletter"}
         </h3>
-        <div className="flex gap-0.5">
+        <div className="flex w-full gap-0.5">
           <input
             type="email"
             placeholder={newsletter.placeholder || "Enter your email"}
-            className="h-11 flex-1 border-0 bg-white px-3 py-1 text-base font-light text-jamb-gray placeholder:text-jamb-gray focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm"
+            className="h-11 flex-1 min-w-0 border-0 bg-white px-3 py-1 text-base font-light text-jamb-gray placeholder:text-jamb-gray focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm"
           />
           <button
             type="submit"

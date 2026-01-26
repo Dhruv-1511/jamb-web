@@ -43,11 +43,11 @@ function StandardLayout({
               {eyebrow}
             </p>
           )}
-          <h2 className="text-4xl text-balance md:text-4xl mb-8 text-center !leading-12">
+          <h2 className="text-2xl sm:text-4xl text-balance md:text-4xl mb-4 sm:mb-8 text-center !leading-12">
             {title}
           </h2>
           <RichText
-            className="mb-8 max-md:prose-p:text-sm text-start leading-6"
+            className="mb-4 sm:mb-8 max-md:prose-p:text-sm text-start leading-6"
             richText={richText}
           />
           <SanityButtons buttons={buttons} className="flex !flex-col gap-3 " />

@@ -142,7 +142,7 @@ export function Footer({ data }: FooterProps) {
 
         {/* Navigation Columns */}
         {Array.isArray(columns) && columns.length > 0 && (
-          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
+          <div className="mt-12 grid grid-cols-1 sm:gap-8 lg:grid-cols-5 lg:gap-10">
             {columns.map((column, colIndex) => (
               <div key={`column-${column?._key}-${colIndex}`}>
                 {/* Each column can have multiple sections */}

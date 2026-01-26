@@ -160,6 +160,13 @@ img {
   padding-bottom: 8rem;
 }
 
+@media (max-width: 768px) {
+  .py-pagebuilder {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
 /* Smooth scroll with offset for fixed navbar */
 html {
   scroll-behavior: smooth;
