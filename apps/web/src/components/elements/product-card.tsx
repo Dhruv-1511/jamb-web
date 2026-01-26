@@ -63,11 +63,11 @@ export function ProductCard({
         )}
       </div>
       <div className="mt-3 text-center">
-        <h3 className="truncate text-center font-bold leading-[150%] text-[#737373]">
+        <h3 className="truncate text-center font-semibold leading-6 text-[#737373]">
           {title}
         </h3>
         {subtitle && (
-          <p className="text-center font-medium leading-[24px] text-[#737373]">
+          <p className="text-center leading-6 text-[#737373]">
             {subtitle}
           </p>
         )}

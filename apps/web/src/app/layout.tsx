@@ -29,13 +29,18 @@ const fontMono = Geist_Mono({
 const fontSerif = localFont({
   src: [
     {
-      path: "../../public/fonts/Libre_Baskerville/Libre_Baskerville/LibreBaskerville-Regular.ttf",
+      path: "../../public/fonts/Libre_Baskerville/Libre_Baskerville/LibreBaskerville-Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../../public/fonts/Libre_Baskerville/Libre_Baskerville/LibreBaskerville-Medium.ttf",
+      path: "../../public/fonts/Libre_Baskerville/Libre_Baskerville/LibreBaskerville-Medium.woff2",
       weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Libre_Baskerville/Libre_Baskerville/LibreBaskerville-SemiBold.woff2",
+      weight: "600",
       style: "normal",
     },
   ],

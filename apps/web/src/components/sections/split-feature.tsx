@@ -43,7 +43,7 @@ function StandardLayout({
               {eyebrow}
             </p>
           )}
-          <h2 className="text-4xl text-balance font-medium md:text-4xl mb-8 text-center">
+          <h2 className="text-4xl text-balance font-medium md:text-4xl mb-8 text-center !leading-12">
             {title}
           </h2>
           <RichText
