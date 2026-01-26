@@ -12,7 +12,7 @@ export function CategoryLinksBlock({ links }: CategoryLinksBlockProps) {
   return (
     <section className="w-full border-t border-foreground/20 bg-background">
       <div className="max-sm:hidden container py-8">
-        <nav className="flex items-center justify-center gap-2 flex-wrap font-medium">
+        <nav className="flex items-center justify-center gap-2 flex-wrap">
           {links.map((link, index) => (
             <div key={link._key} className="flex items-center">
               {index > 0 && <span className="text-foreground/40 mx-3">|</span>}
@@ -20,7 +20,7 @@ export function CategoryLinksBlock({ links }: CategoryLinksBlockProps) {
                 href={link.href || "#"}
                 target={link.openInNewTab ? "_blank" : undefined}
                 rel={link.openInNewTab ? "noopener noreferrer" : undefined}
-                className="text-jamb-gray font-medium transition-colors hover:text-black"
+                className="text-jamb-gray transition-colors hover:text-black"
               >
                 {link.text}
               </Link>

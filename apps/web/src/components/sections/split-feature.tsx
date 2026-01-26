@@ -39,15 +39,15 @@ function StandardLayout({
           whileInView={{ opacity: 1, x: 0 }}
         >
           {eyebrow && (
-            <p className="text-base font-medium uppercase mb-6 text-center leading-6">
+            <p className="text-base uppercase mb-6 text-center leading-6">
               {eyebrow}
             </p>
           )}
-          <h2 className="text-4xl text-balance font-medium md:text-4xl mb-8 text-center !leading-12">
+          <h2 className="text-4xl text-balance md:text-4xl mb-8 text-center !leading-12">
             {title}
           </h2>
           <RichText
-            className="mb-6 max-md:prose-p:text-sm text-start leading-6"
+            className="mb-8 max-md:prose-p:text-sm text-start leading-6"
             richText={richText}
           />
           <SanityButtons buttons={buttons} className="flex !flex-col gap-3 " />

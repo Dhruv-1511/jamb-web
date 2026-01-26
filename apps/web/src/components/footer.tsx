@@ -105,7 +105,7 @@ export function Footer({ data }: FooterProps) {
         {/* Top section: Contact, Email, Newsletter */}
         <div className="mb-7 grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
           {/* Contact & Email - spans 2 columns */}
-          <div className="col-span-2 grid grid-cols-1 gap-6 font-medium text-jamb-gray md:grid-cols-2 lg:gap-10">
+          <div className="col-span-2 grid grid-cols-1 gap-6 text-jamb-gray md:grid-cols-2 lg:gap-10">
             {/* Contact Info */}
             <div className="leading-6">
               {contactInfo?.phone && (
@@ -153,7 +153,7 @@ export function Footer({ data }: FooterProps) {
                   >
                     {/* Section Title */}
                     {section?.title && (
-                      <h3 className="mb-1 text-base !font-medium leading-8 text-black">
+                      <h3 className="mb-1 text-base  leading-8 text-black">
                         {section.title}
                       </h3>
                     )}
@@ -170,7 +170,7 @@ export function Footer({ data }: FooterProps) {
                                   : undefined
                               }
                               target={link.openInNewTab ? "_blank" : undefined}
-                              className="text-base font-medium leading-8 text-jamb-gray transition-colors hover:text-black"
+                              className="text-base  leading-8 text-jamb-gray transition-colors hover:text-black"
                             >
                               {link.name}
                             </Link>
