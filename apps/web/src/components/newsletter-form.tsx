@@ -22,7 +22,7 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
       }}
     >
       <div>
-        <h3 className="mb-2 text-base font-medium leading-6 text-jamb-gray">
+        <h3 className="mb-2 text-base leading-6 text-jamb-gray">
           {newsletter.title || "Newsletter"}
         </h3>
         <div className="flex w-full gap-0.5">
@@ -33,7 +33,7 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
           />
           <button
             type="submit"
-            className="h-11 shrink-0 border-0 border-[#757575] bg-white px-4 py-2 text-base font-medium text-jamb-gray transition-colors duration-300 hover:bg-neutral-500 hover:text-white"
+            className="h-11 shrink-0 border-0 border-[#757575] bg-white px-4 py-2 text-base text-jamb-gray transition-colors duration-300 cursor-pointer hover:text-white hover:bg-jamb-gray"
           >
             {newsletter.buttonText || "Subscribe"}
           </button>
@@ -49,7 +49,7 @@ export function NewsletterForm({ newsletter }: NewsletterFormProps) {
         />
         <label
           htmlFor="privacy-agreement"
-          className="cursor-pointer text-jamb-gray font-medium"
+          className="cursor-pointer text-jamb-gray"
         >
           I agree to our{" "}
           <Link
