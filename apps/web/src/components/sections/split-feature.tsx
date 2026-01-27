@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@workspace/ui/lib/utils";
+import { Skeleton } from "@workspace/ui/components/skeleton";
 import { motion } from "motion/react";
 
 import type { PagebuilderType } from "@/types";
@@ -205,3 +206,28 @@ export function SplitFeatureBlock(props: SplitFeatureBlockProps) {
   }
 }
 
+
+export function SplitFeatureSkeleton() {
+  return (
+    <section className="container py-pagebuilder">
+      <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+        <div className="col-span-1 mx-auto flex w-full max-w-lg flex-col items-center justify-center space-y-6">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-10 w-full" />
+          <div className="space-y-2 w-full">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-[90%]" />
+            <Skeleton className="h-4 w-[95%]" />
+          </div>
+          <div className="flex w-full flex-col gap-3">
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
+          </div>
+        </div>
+        <div className="col-span-1 flex items-center justify-center">
+          <Skeleton className="aspect-square w-full max-w-md rounded-none!" />
+        </div>
+      </div>
+    </section>
+  );
+}

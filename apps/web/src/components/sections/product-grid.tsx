@@ -4,10 +4,11 @@ import { cn } from "@workspace/ui/lib/utils";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
+import { Skeleton } from "@workspace/ui/components/skeleton";
 import { useCallback, useEffect, useState } from "react";
 
 import type { PagebuilderType } from "@/types";
-import { ProductCard } from "../elements/product-card";
+import { ProductCard, ProductCardSkeleton } from "../elements/product-card";
 
 type ProductGridBlockProps = PagebuilderType<"productGrid">;
 
@@ -144,6 +145,21 @@ export function ProductGridBlock({
             ))}
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+export function ProductGridSkeleton() {
+  return (
+    <section className="container bg-[#E3E3E3] p-10">
+      <div className="mx-auto mb-8 flex justify-center">
+        <Skeleton className="h-6 w-48" />
+      </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        {[1, 2, 3, 4].map((i) => (
+          <ProductCardSkeleton key={i} />
+        ))}
       </div>
     </section>
   );

@@ -4,6 +4,8 @@ import { cn } from "@workspace/ui/lib/utils";
 import { motion } from "motion/react";
 import Link from "next/link";
 
+import { Skeleton } from "@workspace/ui/components/skeleton";
+
 import type { SanityImageProps } from "@/types";
 import { SanityImage } from "./sanity-image";
 
@@ -88,4 +90,18 @@ export function ProductCard({
   }
 
   return content;
+}
+
+export function ProductCardSkeleton() {
+  return (
+    <div className="group w-full">
+      <div className="relative aspect-4/3 overflow-hidden">
+        <Skeleton className="h-full w-full rounded-none!" />
+      </div>
+      <div className="mt-3 flex flex-col items-center space-y-2">
+        <Skeleton className="h-5 w-2/3" />
+        <Skeleton className="h-4 w-1/2" />
+      </div>
+    </div>
+  );
 }

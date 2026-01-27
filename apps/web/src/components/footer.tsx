@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Skeleton } from "@workspace/ui/components/skeleton";
 
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryFooterData } from "@/lib/sanity/query";
@@ -62,31 +63,31 @@ export async function FooterServer() {
 
 export function FooterSkeleton() {
   return (
-    <footer className="bg-[#d4d4d4] p-8">
+    <footer className="bg-[#d4d4d4] px-6 py-12 lg:px-8">
       <div className="mx-auto">
-        {/* Top section skeleton */}
         <div className="mb-7 grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
           <div className="col-span-2 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-10">
-            <div className="h-20 animate-pulse rounded bg-gray-300" />
-            <div className="h-20 animate-pulse rounded bg-gray-300" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-4 w-40" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-48" />
+            </div>
           </div>
           <div aria-hidden="true" className="hidden md:block" />
-          <div className="col-span-2 h-40 animate-pulse rounded bg-gray-300" />
+          <div className="col-span-2">
+            <Skeleton className="h-40 w-full" />
+          </div>
         </div>
-        {/* Navigation columns skeleton */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
+        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
           {[1, 2, 3, 4, 5].map((col) => (
-            <div key={col}>
-              <div className="border-jamb-gray border-t pt-[14px]">
-                <div className="mb-4 h-5 w-32 animate-pulse rounded bg-gray-300" />
-                <div className="space-y-2">
-                  {[1, 2, 3, 4].map((item) => (
-                    <div
-                      className="h-4 w-24 animate-pulse rounded bg-gray-300"
-                      key={item}
-                    />
-                  ))}
-                </div>
+            <div key={col} className="border-jamb-gray border-t py-4">
+              <Skeleton className="mb-4 h-5 w-24" />
+              <div className="space-y-3">
+                {[1, 2, 3, 4].map((item) => (
+                  <Skeleton className="h-4 w-20" key={item} />
+                ))}
               </div>
             </div>
           ))}
